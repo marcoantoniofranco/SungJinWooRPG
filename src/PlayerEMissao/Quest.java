@@ -20,9 +20,6 @@ public class Quest {
     }
 
     public int calcularXP() {
-        if (!finalizada)
-            return 0;
-
         // XP base = 100
         int multiplicadorDificuldade = switch (dificuldade) {
             case NivelDificuldade.MEDIO -> 2;

@@ -35,6 +35,19 @@ public class Player {
         }
     }
 
+    public void adicionarXP(int xp) {
+        this.xp += xp;
+        verificarSubirNivel();
+    }
+
+    private void verificarSubirNivel() {
+        while (this.xp >= 1000) {
+            this.lvl++;
+            this.xp -= 900;
+            System.out.println("\n🎉 PARABÉNS! Você subiu para o nível " + this.lvl + "! 🎉");
+        }
+    }
+
     public void subirNivel() {
         this.lvl++;
         this.xp = 100;

@@ -143,9 +143,10 @@ public class Main {
         if (numeroMissao >= 0 && numeroMissao < player.quantidadeQuests) {
             Quest quest = player.listaQuests[numeroMissao];
             if (!quest.finalizada) {
+                int xpGanho = quest.calcularXP();
                 quest.finalizar();
-                player.xp += quest.calcularXP();
-                System.out.println("Missão finalizada! Você ganhou " + quest.calcularXP() + " XP!");
+                player.adicionarXP(xpGanho);
+                System.out.println("Missão finalizada! Você ganhou " + xpGanho + " XP!");
             } else {
                 System.out.println("Esta missão já foi finalizada!");
             }
