@@ -17,7 +17,8 @@ public class Main {
             System.out.println("1 - Criar Nova Missão");
             System.out.println("2 - Ver Status");
             System.out.println("3 - Ver Missões");
-            System.out.println("4 - Sair");
+            System.out.println("4 - Finalizar Missão");
+            System.out.println("5 - Sair");
             System.out.print("Escolha uma opção: ");
 
             int opcao = sc.nextInt();
@@ -34,6 +35,9 @@ public class Main {
                     mostrarMissoes(player);
                     break;
                 case 4:
+                    finalizarMissao(player);
+                    break;
+                case 5:
                     continuar = false;
                     break;
                 default:
@@ -124,5 +128,29 @@ public class Main {
         Quest novaQuest = new Quest(titulo, dificuldade, descricao, duracao);
         player.adicionarQuest(novaQuest);
         System.out.println("Missão " + duracao + " criada com sucesso!");
+    }
+
+    private static void finalizarMissao(Player player) {
+        if (player.quantidadeQuests == 0) {
+            System.out.println("Você não tem missões para finalizar!");
+            return;
+        }
+
+        mostrarMissoes(player);
+        System.out.print("\nDigite o número da missão que deseja finalizar: ");
+        int numeroMissao = sc.nextInt() - 1;
+
+        if (numeroMissao >= 0 && numeroMissao < player.quantidadeQuests) {
+            Quest quest = player.listaQuests[numeroMissao];
+            if (!quest.finalizada) {
+                quest.finalizar();
+                player.xp += quest.calcularXP();
+                System.out.println("Missão finalizada! Você ganhou " + quest.calcularXP() + " XP!");
+            } else {
+                System.out.println("Esta missão já foi finalizada!");
+            }
+        } else {
+            System.out.println("Número de missão inválido!");
+        }
     }
 }
