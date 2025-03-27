@@ -74,11 +74,11 @@ public class Player {
             return lvl * 100;
         }
 
-        if(lvl > 50 && lvl < 70){
+        if(lvl >= 50 && lvl < 70){
             return lvl * 150; 
         }
 
-        if(lvl > 70){
+        if(lvl >= 70){
             return lvl * 200;
         }
 
@@ -112,5 +112,28 @@ public class Player {
      */
     public boolean alternarModoOfensivo() {
         return this.ofensiva = !this.ofensiva;
+    }
+
+    /**
+     * Remove uma missão da lista de missões do jogador pelo índice.
+     * 
+     * @param indice Índice da missão a ser removida
+     * @return true se a missão foi removida com sucesso, false caso contrário
+     */
+    public boolean removerQuest(int indice) {
+        if (indice < 0 || indice >= quantidadeQuests) {
+            return false;
+        }
+        
+        // Desloca todas as missões após o índice removido
+        for (int i = indice; i < quantidadeQuests - 1; i++) {
+            listaQuests[i] = listaQuests[i + 1];
+        }
+        
+        // Limpa a última posição e decrementa a quantidade
+        listaQuests[quantidadeQuests - 1] = null;
+        quantidadeQuests--;
+        
+        return true;
     }
 }

@@ -80,7 +80,7 @@ public class Main {
         System.out.println("\n=== Status do Jogador ===");
         System.out.println("Nome: " + player.nome);
         System.out.println("Nível: " + player.lvl);
-        System.out.println("XP: " + player.xp);
+        System.out.println("XP: " + player.xp + " / " + (int)player.nivelGap(player.lvl));
         System.out.println("Mana: " + player.mana);
         System.out.println("Força: " + player.forca);
         System.out.println("Inteligência: " + player.inteligencia);
@@ -178,6 +178,7 @@ public class Main {
                 quest.finalizar();
                 player.adicionarXP(xpGanho);
                 System.out.println("Missão finalizada! Você ganhou " + xpGanho + " XP!");
+                System.out.println("XP atual: " + player.xp + " / " + (int)player.nivelGap(player.lvl));
             } else {
                 System.out.println("Esta missão já foi finalizada!");
             }
