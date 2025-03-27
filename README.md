@@ -14,7 +14,7 @@ Um sistema RPG inspirado em Solo Leveling, implementado em Java. Evolua de um ca
 1. Clone o repositório
 
    ```bash
-   git clone https://github.com/seu-usuario/SungJinWooRPG.git
+   git clone https://github.com/marcoantoniofranco/SungJinWooRPG
    ```
 
 2. Execute a classe `Main.java` localizada em `SoloLeveling.src`
