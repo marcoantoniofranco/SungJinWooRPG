@@ -7,10 +7,16 @@ import PlayerEMissao.Quest;
 public class Main {
     private static Scanner sc = new Scanner(System.in);
 
+    /**
+     * Método principal do programa.
+     * 
+     * @param args Argumentos da linha de comando
+     */
     public static void main(String[] args) {
         Player player = criarJogador();
         mostrarStatusInicial(player);
 
+        // Loop principal do programa
         boolean continuar = true;
         while (continuar) {
             System.out.println("\n=== Menu Principal ===");
@@ -49,6 +55,11 @@ public class Main {
         sc.close();
     }
 
+    /**
+     * Cria um novo jogador.
+     * 
+     * @return Jogador criado
+     */
     private static Player criarJogador() {
         System.out.println("Digite o nome do seu personagem: ");
         String nome = sc.nextLine();
@@ -60,6 +71,11 @@ public class Main {
         return new Player(nome, idade);
     }
 
+    /**
+     * Exibe o status inicial do jogador.
+     * 
+     * @param player Jogador
+     */
     private static void mostrarStatusInicial(Player player) {
         System.out.println("\n=== Status do Jogador ===");
         System.out.println("Nome: " + player.nome);
@@ -72,6 +88,11 @@ public class Main {
         System.out.println("Modo Ofensivo: " + (player.ofensiva ? "Ativado" : "Desativado"));
     }
 
+    /**
+     * Exibe as missões do jogador.
+     * 
+     * @param player Jogador
+     */
     private static void mostrarMissoes(Player player) {
         System.out.println("\n=== Suas Missões ===");
         if (player.quantidadeQuests == 0) {
@@ -87,6 +108,11 @@ public class Main {
         }
     }
 
+    /**
+     * Cria uma nova missão para o jogador.
+     * 
+     * @param player Jogador
+     */
     private static void criarMissaoUsuario(Player player) {
         System.out.println("\n=== Criar Nova Missão ===");
 
@@ -130,6 +156,11 @@ public class Main {
         System.out.println("Missão " + duracao + " criada com sucesso!");
     }
 
+    /**
+     * Finaliza uma missão do jogador.
+     * 
+     * @param player Jogador
+     */
     private static void finalizarMissao(Player player) {
         if (player.quantidadeQuests == 0) {
             System.out.println("Você não tem missões para finalizar!");
