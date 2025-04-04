@@ -78,14 +78,14 @@ public class Main {
      */
     private static void mostrarStatusInicial(Player player) {
         System.out.println("\n=== Status do Jogador ===");
-        System.out.println("Nome: " + player.nome);
-        System.out.println("Nível: " + player.lvl);
-        System.out.println("XP: " + player.xp + " / " + (int)player.nivelGap(player.lvl));
-        System.out.println("Mana: " + player.mana);
-        System.out.println("Força: " + player.forca);
-        System.out.println("Inteligência: " + player.inteligencia);
-        System.out.println("Constituição: " + player.constituicao);
-        System.out.println("Modo Ofensivo: " + (player.ofensiva ? "Ativado" : "Desativado"));
+        System.out.println("Nome: " + player.getNome());
+        System.out.println("Nível: " + player.getLvl());
+        System.out.println("XP: " + player.getXp() + " / " + (int) player.nivelGap(player.getLvl()));
+        System.out.println("Mana: " + player.getMana());
+        System.out.println("Força: " + player.getForca());
+        System.out.println("Inteligência: " + player.getInteligencia());
+        System.out.println("Constituição: " + player.getConstituicao());
+        System.out.println("Modo Ofensivo: " + (player.isOfensiva() ? "Ativado" : "Desativado"));
     }
 
     /**
@@ -95,16 +95,16 @@ public class Main {
      */
     private static void mostrarMissoes(Player player) {
         System.out.println("\n=== Suas Missões ===");
-        if (player.quantidadeQuests == 0) {
+        if (player.getQuantidadeQuests() == 0) {
             System.out.println("Você ainda não tem missões!");
             return;
         }
-        for (int i = 0; i < player.quantidadeQuests; i++) {
-            Quest quest = player.listaQuests[i];
-            System.out.println((i + 1) + " - " + quest.titulo +
+        for (int i = 0; i < player.getQuantidadeQuests(); i++) {
+            Quest quest = player.getListaQuests()[i];
+            System.out.println((i + 1) + " - " + quest.getTitulo() +
                     " (XP: " + quest.calcularXP() +
                     ", Dificuldade: " + quest.getDificuldadeNome() +
-                    ", Duração: " + quest.duracao + ")");
+                    ", Duração: " + quest.getDuracao() + ")");
         }
     }
 
@@ -162,7 +162,7 @@ public class Main {
      * @param player Jogador
      */
     private static void finalizarMissao(Player player) {
-        if (player.quantidadeQuests == 0) {
+        if (player.getQuantidadeQuests() == 0) {
             System.out.println("Você não tem missões para finalizar!");
             return;
         }
@@ -171,14 +171,14 @@ public class Main {
         System.out.print("\nDigite o número da missão que deseja finalizar: ");
         int numeroMissao = sc.nextInt() - 1;
 
-        if (numeroMissao >= 0 && numeroMissao < player.quantidadeQuests) {
-            Quest quest = player.listaQuests[numeroMissao];
-            if (!quest.finalizada) {
+        if (numeroMissao >= 0 && numeroMissao < player.getQuantidadeQuests()) {
+            Quest quest = player.getListaQuests()[numeroMissao];
+            if (!quest.isFinalizada()) {
                 int xpGanho = quest.calcularXP();
                 quest.finalizar();
                 player.adicionarXP(xpGanho);
                 System.out.println("Missão finalizada! Você ganhou " + xpGanho + " XP!");
-                System.out.println("XP atual: " + player.xp + " / " + (int)player.nivelGap(player.lvl));
+                System.out.println("XP atual: " + player.getXp() + " / " + (int) player.nivelGap(player.getLvl()));
             } else {
                 System.out.println("Esta missão já foi finalizada!");
             }

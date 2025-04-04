@@ -7,23 +7,23 @@ import java.util.Date;
  * Contém atributos do personagem, status e gerencia as missões do jogador.
  */
 public class Player {
-    public String nome;
-    public Date idade;
-    public int xp;
-    public int lvl;
-    public int mana;
-    public int forca;
-    public int inteligencia;
-    public int constituicao;
-    public boolean ofensiva;
-    public Quest[] listaQuests;
-    public int quantidadeQuests;
+    private String nome;
+    private Date idade;
+    private int xp;
+    private int lvl;
+    private int mana;
+    private int forca;
+    private int inteligencia;
+    private int constituicao;
+    private boolean ofensiva;
+    private Quest[] listaQuests;
+    private int quantidadeQuests;
 
     /**
      * Construtor da classe Player.
      * Inicializa um novo jogador com valores padrão.
      * 
-     * @param nome Nome do jogador
+     * @param nome  Nome do jogador
      * @param idade Idade do jogador
      */
     public Player(String nome, Date idade) {
@@ -69,16 +69,16 @@ public class Player {
      * @param lvl Nível atual do jogador
      * @return Quantidade de XP necessária para o próximo nível
      */
-    public double nivelGap(int lvl){
-        if(lvl < 50){
+    public double nivelGap(int lvl) {
+        if (lvl < 50) {
             return lvl * 100;
         }
 
-        if(lvl >= 50 && lvl < 70){
-            return lvl * 150; 
+        if (lvl >= 50 && lvl < 70) {
+            return lvl * 150;
         }
 
-        if(lvl >= 70){
+        if (lvl >= 70) {
             return lvl * 200;
         }
 
@@ -124,16 +124,107 @@ public class Player {
         if (indice < 0 || indice >= quantidadeQuests) {
             return false;
         }
-        
+
         // Desloca todas as missões após o índice removido
         for (int i = indice; i < quantidadeQuests - 1; i++) {
             listaQuests[i] = listaQuests[i + 1];
         }
-        
+
         // Limpa a última posição e decrementa a quantidade
         listaQuests[quantidadeQuests - 1] = null;
         quantidadeQuests--;
-        
+
         return true;
+    }
+
+    // Getters e Setters
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Date getIdade() {
+        return idade;
+    }
+
+    public void setIdade(Date idade) {
+        this.idade = idade;
+    }
+
+    public int getXp() {
+        return xp;
+    }
+
+    public void setXp(int xp) {
+        this.xp = xp;
+        verificarSubirNivel();
+    }
+
+    public int getLvl() {
+        return lvl;
+    }
+
+    public void setLvl(int lvl) {
+        this.lvl = lvl;
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public void setMana(int mana) {
+        this.mana = mana;
+    }
+
+    public int getForca() {
+        return forca;
+    }
+
+    public void setForca(int forca) {
+        this.forca = forca;
+    }
+
+    public int getInteligencia() {
+        return inteligencia;
+    }
+
+    public void setInteligencia(int inteligencia) {
+        this.inteligencia = inteligencia;
+    }
+
+    public int getConstituicao() {
+        return constituicao;
+    }
+
+    public void setConstituicao(int constituicao) {
+        this.constituicao = constituicao;
+    }
+
+    public boolean isOfensiva() {
+        return ofensiva;
+    }
+
+    public void setOfensiva(boolean ofensiva) {
+        this.ofensiva = ofensiva;
+    }
+
+    public Quest[] getListaQuests() {
+        return listaQuests;
+    }
+
+    public void setListaQuests(Quest[] listaQuests) {
+        this.listaQuests = listaQuests;
+    }
+
+    public int getQuantidadeQuests() {
+        return quantidadeQuests;
+    }
+
+    public void setQuantidadeQuests(int quantidadeQuests) {
+        this.quantidadeQuests = quantidadeQuests;
     }
 }

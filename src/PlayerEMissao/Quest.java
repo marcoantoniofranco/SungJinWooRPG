@@ -1,21 +1,19 @@
 package PlayerEMissao;
 
 public class Quest {
-    public String titulo;
-    public int dificuldade; //	 1 = Fácil, 2 = Médio, 3 = Difícil
-    public String descricao;
-    public String duracao;
-    public boolean finalizada;
-
-
+    private String titulo;
+    private int dificuldade; // 1 = Fácil, 2 = Médio, 3 = Difícil
+    private String descricao;
+    private String duracao;
+    private boolean finalizada;
 
     /**
      * Construtor da classe Quest.
      * 
-     * @param titulo Título da missão
+     * @param titulo      Título da missão
      * @param dificuldade Nível de dificuldade
-     * @param descricao Descrição da missão
-     * @param duracao Duração da missão
+     * @param descricao   Descrição da missão
+     * @param duracao     Duração da missão
      */
     public Quest(String titulo, int dificuldade, String descricao, String duracao) {
         this.titulo = titulo;
@@ -61,5 +59,47 @@ public class Quest {
      */
     public String getDificuldadeNome() {
         return NivelDificuldade.getNome(dificuldade);
+    }
+
+    // Getters e Setters
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public int getDificuldade() {
+        return dificuldade;
+    }
+
+    public void setDificuldade(int dificuldade) {
+        this.dificuldade = dificuldade;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getDuracao() {
+        return duracao;
+    }
+
+    public void setDuracao(String duracao) {
+        this.duracao = duracao;
+    }
+
+    public boolean isFinalizada() {
+        return finalizada;
+    }
+
+    public void setFinalizada(boolean finalizada) {
+        this.finalizada = finalizada;
     }
 }
