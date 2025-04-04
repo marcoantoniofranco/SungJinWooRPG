@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -99,8 +100,10 @@ public class Main {
             System.out.println("Você ainda não tem missões!");
             return;
         }
-        for (int i = 0; i < player.getQuantidadeQuests(); i++) {
-            Quest quest = player.getListaQuests()[i];
+
+        ArrayList<Quest> listaQuests = player.getListaQuests();
+        for (int i = 0; i < listaQuests.size(); i++) {
+            Quest quest = listaQuests.get(i);
             System.out.println((i + 1) + " - " + quest.getTitulo() +
                     " (XP: " + quest.calcularXP() +
                     ", Dificuldade: " + quest.getDificuldadeNome() +
@@ -171,8 +174,9 @@ public class Main {
         System.out.print("\nDigite o número da missão que deseja finalizar: ");
         int numeroMissao = sc.nextInt() - 1;
 
-        if (numeroMissao >= 0 && numeroMissao < player.getQuantidadeQuests()) {
-            Quest quest = player.getListaQuests()[numeroMissao];
+        ArrayList<Quest> listaQuests = player.getListaQuests();
+        if (numeroMissao >= 0 && numeroMissao < listaQuests.size()) {
+            Quest quest = listaQuests.get(numeroMissao);
             if (!quest.isFinalizada()) {
                 int xpGanho = quest.calcularXP();
                 quest.finalizar();

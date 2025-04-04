@@ -1,5 +1,6 @@
 package PlayerEMissao;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -16,8 +17,7 @@ public class Player {
     private int inteligencia;
     private int constituicao;
     private boolean ofensiva;
-    private Quest[] listaQuests;
-    private int quantidadeQuests;
+    private ArrayList<Quest> listaQuests;
 
     /**
      * Construtor da classe Player.
@@ -36,19 +36,17 @@ public class Player {
         this.inteligencia = 0;
         this.constituicao = 0;
         this.ofensiva = false;
-        this.listaQuests = new Quest[10];
-        this.quantidadeQuests = 0;
+        this.listaQuests = new ArrayList<>();
     }
 
     /**
      * Adiciona uma nova missão à lista de missões do jogador.
-     * Verifica se a missão é válida e se há espaço disponível.
      * 
      * @param quest Missão a ser adicionada
      */
     public void adicionarQuest(Quest quest) {
-        if (quest != null && quantidadeQuests < 10) {
-            listaQuests[quantidadeQuests++] = quest;
+        if (quest != null) {
+            listaQuests.add(quest);
         }
     }
 
@@ -121,19 +119,11 @@ public class Player {
      * @return true se a missão foi removida com sucesso, false caso contrário
      */
     public boolean removerQuest(int indice) {
-        if (indice < 0 || indice >= quantidadeQuests) {
+        if (indice < 0 || indice >= listaQuests.size()) {
             return false;
         }
 
-        // Desloca todas as missões após o índice removido
-        for (int i = indice; i < quantidadeQuests - 1; i++) {
-            listaQuests[i] = listaQuests[i + 1];
-        }
-
-        // Limpa a última posição e decrementa a quantidade
-        listaQuests[quantidadeQuests - 1] = null;
-        quantidadeQuests--;
-
+        listaQuests.remove(indice);
         return true;
     }
 
@@ -212,19 +202,15 @@ public class Player {
         this.ofensiva = ofensiva;
     }
 
-    public Quest[] getListaQuests() {
+    public ArrayList<Quest> getListaQuests() {
         return listaQuests;
     }
 
-    public void setListaQuests(Quest[] listaQuests) {
+    public void setListaQuests(ArrayList<Quest> listaQuests) {
         this.listaQuests = listaQuests;
     }
 
     public int getQuantidadeQuests() {
-        return quantidadeQuests;
-    }
-
-    public void setQuantidadeQuests(int quantidadeQuests) {
-        this.quantidadeQuests = quantidadeQuests;
+        return listaQuests.size();
     }
 }
