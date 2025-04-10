@@ -1,7 +1,6 @@
 package PlayerEMissao;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Classe que representa o jogador no sistema RPG.
@@ -9,7 +8,7 @@ import java.util.Date;
  */
 public class Player {
     private String nome;
-    private Date idade;
+    private int idade;
     private int xp;
     private int lvl;
     private int mana;
@@ -26,7 +25,7 @@ public class Player {
      * @param nome  Nome do jogador
      * @param idade Idade do jogador
      */
-    public Player(String nome, Date idade) {
+    public Player(String nome, int idade) {
         this.nome = nome;
         this.idade = idade;
         this.xp = 100;
@@ -137,11 +136,11 @@ public class Player {
         this.nome = nome;
     }
 
-    public Date getIdade() {
+    public int getIdade() {
         return idade;
     }
 
-    public void setIdade(Date idade) {
+    public void setIdade(int idade) {
         this.idade = idade;
     }
 

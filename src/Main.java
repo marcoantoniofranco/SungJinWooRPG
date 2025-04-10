@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
 import PlayerEMissao.Player;
@@ -66,8 +65,7 @@ public class Main {
         String nome = sc.nextLine();
 
         System.out.println("Digite a idade do seu personagem: ");
-        int idadeInt = sc.nextInt();
-        Date idade = new Date(idadeInt, 1, 1);
+        int idade = sc.nextInt();
 
         return new Player(nome, idade);
     }
@@ -80,6 +78,7 @@ public class Main {
     private static void mostrarStatusInicial(Player player) {
         System.out.println("\n=== Status do Jogador ===");
         System.out.println("Nome: " + player.getNome());
+        System.out.println("Idade: " + player.getIdade() + " anos");
         System.out.println("Nível: " + player.getLvl());
         System.out.println("XP: " + player.getXp() + " / " + (int) player.xpProximoNivel(player.getLvl()));
         System.out.println("Mana: " + player.getMana());
