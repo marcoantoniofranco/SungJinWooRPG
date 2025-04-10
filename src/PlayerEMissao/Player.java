@@ -67,7 +67,7 @@ public class Player {
      * @param lvl Nível atual do jogador
      * @return Quantidade de XP necessária para o próximo nível
      */
-    public double nivelGap(int lvl) {
+    public double xpProximoNivel(int lvl) {
         if (lvl < 50) {
             return lvl * 100;
         }
@@ -88,9 +88,9 @@ public class Player {
      * Se tiver, aumenta o nível e ajusta o XP.
      */
     private void verificarSubirNivel() {
-        while (this.xp >= nivelGap(this.lvl)) {
+        while (this.xp >= xpProximoNivel(this.lvl)) {
             this.lvl++;
-            this.xp -= nivelGap(this.lvl);
+            this.xp -= xpProximoNivel(this.lvl);
             System.out.println("\n PARABÉNS! Você subiu para o nível " + this.lvl + "! ");
         }
     }
