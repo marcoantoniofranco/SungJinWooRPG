@@ -28,7 +28,7 @@ public class Player {
     public Player(String nome, int idade) {
         this.nome = nome;
         this.idade = idade;
-        this.xp = 100;
+        this.xp = 0;
         this.lvl = 1;
         this.mana = 100;
         this.forca = 0;
@@ -37,6 +37,8 @@ public class Player {
         this.ofensiva = false;
         this.listaQuests = new ArrayList<>();
     }
+
+
 
     /**
      * Adiciona uma nova missão à lista de missões do jogador com try-catch-finally.
@@ -66,48 +68,63 @@ public class Player {
         verificarSubirNivel();
     }
 
-    /**
-     * Calcula a quantidade de XP necessária para subir de nível.
-     * A quantidade aumenta conforme o nível do jogador.
-     * 
-     * @param lvl Nível atual do jogador
-     * @return Quantidade de XP necessária para o próximo nível
-     */
-    public double xpProximoNivel(int lvl) {
-        if (lvl < 50) {
-            return lvl * 100;
-        }
+    public int xpProximoNivel(int lvl){
 
-        if (lvl >= 50 && lvl < 70) {
+        if(lvl <= 30){
             return lvl * 150;
         }
-
-        if (lvl >= 70) {
-            return lvl * 200;
+        if(lvl > 30 && lvl <= 60){
+            return lvl * 140;
         }
 
-        return 0;
+        return lvl * 130;
+
     }
 
-    /**
-     * Verifica se o jogador tem XP suficiente para subir de nível.
-     * Se tiver, aumenta o nível e ajusta o XP.
-     */
     private void verificarSubirNivel() {
-        while (this.xp >= xpProximoNivel(this.lvl)) {
-            this.lvl++;
-            this.xp -= xpProximoNivel(this.lvl);
-            System.out.println("\n PARABÉNS! Você subiu para o nível " + this.lvl + "! ");
+        while (this.xp >= xpProximoNivel(lvl)) {
+            subirNivel();
+            System.out.println("\nPARABÉNS! Você subiu para o nível " + this.lvl + "!");
         }
     }
 
-    /**
-     * Aumenta o nível do jogador diretamente e reseta o XP para 100.
-     */
     public void subirNivel() {
-        this.lvl++;
-        this.xp = 100;
+        xp = xp - xpProximoNivel(lvl);
+        lvl++;
     }
+
+
+//    public double xpProximoNivel(int lvl) {
+//        if (lvl < 50) {
+//            return lvl * 100;
+//        }
+//
+//        if (lvl >= 50 && lvl < 70) {
+//            return lvl * 150;
+//        }
+//
+//        if (lvl >= 70) {
+//            return lvl * 200;
+//        }
+//
+//        return 0;
+//    }
+//
+//
+//    private void verificarSubirNivel() {
+//        while (this.xp >= xpProximoNivel(this.lvl)) {
+//            this.lvl++;
+//            this.xp -= xpProximoNivel(this.lvl);
+//            System.out.println("\n PARABÉNS! Você subiu para o nível " + this.lvl + "! ");
+//        }
+//    }
+//
+//
+//
+//    public void subirNivel() {
+//        this.lvl++;
+//        this.xp = 100;
+//    }
 
     /**
      * Alterna o modo ofensivo do jogador entre ativado e desativado.
