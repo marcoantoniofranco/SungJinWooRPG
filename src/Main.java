@@ -61,11 +61,29 @@ public class Main {
      * @return Jogador criado
      */
     private static Player criarJogador() {
-        System.out.println("Digite o nome do seu personagem: ");
-        String nome = sc.nextLine();
+        String nome = "";
+        int idade = 0;
 
-        System.out.println("Digite a idade do seu personagem: ");
-        int idade = sc.nextInt();
+        try {
+            System.out.println("Digite o nome do seu personagem: ");
+            nome = sc.nextLine();
+
+            System.out.println("Digite a idade do seu personagem: ");
+            idade = sc.nextInt();
+
+            if (idade <= 0) {
+                throw new IllegalArgumentException("A idade deve ser maior que zero");
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao criar jogador: " + e.getMessage());
+            // Define valores padrão em caso de erro
+            nome = nome.isEmpty() ? "Jogador" : nome;
+            idade = idade <= 0 ? 18 : idade;
+            // Limpa o buffer do scanner
+            sc.nextLine();
+        } finally {
+            System.out.println("Criação de personagem concluída!");
+        }
 
         return new Player(nome, idade);
     }

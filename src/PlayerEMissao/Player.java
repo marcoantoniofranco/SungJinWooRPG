@@ -39,13 +39,20 @@ public class Player {
     }
 
     /**
-     * Adiciona uma nova missão à lista de missões do jogador.
+     * Adiciona uma nova missão à lista de missões do jogador com try-catch-finally.
      * 
      * @param quest Missão a ser adicionada
      */
     public void adicionarQuest(Quest quest) {
-        if (quest != null) {
+        try {
+            if (quest == null) {
+                throw new IllegalArgumentException("Missão inválida");
+            }
             listaQuests.add(quest);
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        } finally {
+            System.out.println("Operação de missão finalizada");
         }
     }
 
