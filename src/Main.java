@@ -1,11 +1,12 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import PlayerEMissao.Player;
 import PlayerEMissao.Quest;
 
 public class Main {
-    private static Scanner sc = new Scanner(System.in);
+    private final static Scanner sc = new Scanner(System.in);
 
     /**
      * Método principal do programa.
@@ -61,28 +62,22 @@ public class Main {
      * @return Jogador criado
      */
     private static Player criarJogador() {
-        String nome = "";
-        int idade = 0;
-
-        try {
             System.out.println("Digite o nome do seu personagem: ");
-            nome = sc.nextLine();
+            String nome = sc.nextLine();
+        int idade = 0;
+        while(true) {
+            try {
+                System.out.println("Digite a idade do seu personagem: ");
+                idade = sc.nextInt();
 
-            System.out.println("Digite a idade do seu personagem: ");
-            idade = sc.nextInt();
-
-            if (idade <= 0) {
-                throw new IllegalArgumentException("A idade deve ser maior que zero");
+                if (idade <= 0) {
+                    throw new IllegalArgumentException("A idade deve ser maior que zero.");
+                }
+                break;
+            } catch (Exception e) {
+                System.out.println("Inisira um número (positivo).\n" + e.getMessage());
+                sc.nextLine();
             }
-        } catch (Exception e) {
-            System.out.println("Erro ao criar jogador: " + e.getMessage());
-            // Define valores padrão em caso de erro
-            nome = nome.isEmpty() ? "Jogador" : nome;
-            idade = idade <= 0 ? 18 : idade;
-            // Limpa o buffer do scanner
-            sc.nextLine();
-        } finally {
-            System.out.println("Criação de personagem concluída!");
         }
 
         return new Player(nome, idade);
@@ -136,25 +131,47 @@ public class Main {
     private static void criarMissaoUsuario(Player player) {
         System.out.println("\n=== Criar Nova Missão ===");
 
+
         System.out.println("Digite o título da missão: ");
         String titulo = sc.nextLine();
 
         System.out.println("Digite a descrição da missão: ");
         String descricao = sc.nextLine();
 
-        System.out.println("Escolha o nível de dificuldade:");
-        System.out.println("1 - Fácil");
-        System.out.println("2 - Médio");
-        System.out.println("3 - Difícil");
-        System.out.print("Escolha: ");
-        int dificuldade = sc.nextInt();
+        int dificuldade = 0;
+        while(true) {
+            try {
+                System.out.println("Escolha o nível de dificuldade:");
+                System.out.println("1 - Fácil");
+                System.out.println("2 - Médio");
+                System.out.println("3 - Difícil");
+                System.out.print("Escolha: ");
+                dificuldade = sc.nextInt();
+                break;
+            } catch (Exception exception) {
+                System.out.println("\nErro, Insira um número\n" + exception);
+                sc.nextLine();
 
-        System.out.println("Escolha a duração da missão:");
-        System.out.println("1 - Diária");
-        System.out.println("2 - Semanal");
-        System.out.println("3 - Mensal");
-        System.out.print("Escolha: ");
-        int duracaoOpcao = sc.nextInt();
+            }
+        }
+
+        int duracaoOpcao = 0;
+        while(true){
+            try{
+                System.out.println("Escolha a duração da missão:");
+                System.out.println("1 - Diária");
+                System.out.println("2 - Semanal");
+                System.out.println("3 - Mensal");
+                System.out.print("Escolha: ");
+                duracaoOpcao = sc.nextInt();
+                break;
+            } catch (Exception exception) {
+                System.out.println("\nErro, Insira um número\n" + exception);
+                sc.nextLine();
+
+            }
+        }
+
         String duracao;
 
         switch (duracaoOpcao) {
