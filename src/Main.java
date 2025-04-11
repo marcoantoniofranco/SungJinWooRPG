@@ -1,9 +1,8 @@
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import PlayerEMissao.Player;
-import PlayerEMissao.Quest;
+import entities.player.Player;
+import entities.quest.Quest;
 
 public class Main {
     private final static Scanner sc = new Scanner(System.in);
@@ -15,7 +14,7 @@ public class Main {
      */
     public static void main(String[] args) {
         Player player = criarJogador();
-        mostrarStatusInicial(player);
+        System.out.println(player);
 
         // Loop principal do programa
         boolean continuar = true;
@@ -36,7 +35,7 @@ public class Main {
                     criarMissaoUsuario(player);
                     break;
                 case 2:
-                    mostrarStatusInicial(player);
+                    System.out.println(player);
                     break;
                 case 3:
                     mostrarMissoes(player);
@@ -83,23 +82,24 @@ public class Main {
         return new Player(nome, idade);
     }
 
-    /**
-     * Exibe o status inicial do jogador.
-     * 
-     * @param player Jogador
-     */
-    private static void mostrarStatusInicial(Player player) {
-        System.out.println("\n=== Status do Jogador ===");
-        System.out.println("Nome: " + player.getNome());
-        System.out.println("Idade: " + player.getIdade() + " anos");
-        System.out.println("Nível: " + player.getLvl());
-        System.out.println("XP: " + player.getXp() + " / " + (int) player.xpProximoNivel(player.getLvl()));
-        System.out.println("Mana: " + player.getMana());
-        System.out.println("Força: " + player.getForca());
-        System.out.println("Inteligência: " + player.getInteligencia());
-        System.out.println("Constituição: " + player.getConstituicao());
-        System.out.println("Modo Ofensivo: " + (player.isOfensiva() ? "Ativado" : "Desativado"));
-    }
+//    /**
+//     * Exibe o status inicial do jogador.
+//     *
+//     * @param player Jogador
+//     */
+//    private static void mostrarStatusInicial(Player player) {
+//        System.out.println("\n=== Status do Jogador ===");
+//        System.out.println("Id: " + player.getId());
+//        System.out.println("Nome: " + player.getNome());
+//        System.out.println("Idade: " + player.getIdade() + " anos");
+//        System.out.println("Nível: " + player.getLvl());
+//        System.out.println("XP: " + player.getXp() + " / " + (int) player.xpProximoNivel(player.getLvl()));
+//        System.out.println("Mana: " + player.getMana());
+//        System.out.println("Força: " + player.getForca());
+//        System.out.println("Inteligência: " + player.getInteligencia());
+//        System.out.println("Constituição: " + player.getConstituicao());
+//        System.out.println("Modo Ofensivo: " + (player.isOfensiva() ? "Ativado" : "Desativado"));
+//    }
 
     /**
      * Exibe as missões do jogador.
@@ -116,7 +116,7 @@ public class Main {
         ArrayList<Quest> listaQuests = player.getListaQuests();
         for (int i = 0; i < listaQuests.size(); i++) {
             Quest quest = listaQuests.get(i);
-            System.out.println((i + 1) + " - " + quest.getTitulo() +
+            System.out.println(quest.getId() + " - " + quest.getTitulo() +
                     " (XP: " + quest.calcularXP() +
                     ", Dificuldade: " + quest.getDificuldadeNome() +
                     ", Duração: " + quest.getDuracao() + ")");

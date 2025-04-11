@@ -1,4 +1,4 @@
-package Inventario;
+package entities.inventario;
 
 public class Inventario {
     public int quantidade;
@@ -6,7 +6,7 @@ public class Inventario {
     public Items[] itens;
 
     /**
-     * Construtor da classe Inventario.
+     * Construtor da classe entities.Inventario.
      * 
      * @param tipoItem Tipo de item do inventário
      */

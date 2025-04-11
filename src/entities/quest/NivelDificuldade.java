@@ -1,4 +1,4 @@
-package PlayerEMissao;
+package entities.quest;
 
 /**
  * Classe que define os níveis de dificuldade para as missões.

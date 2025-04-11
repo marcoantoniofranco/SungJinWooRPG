@@ -1,6 +1,12 @@
-package PlayerEMissao;
+package entities.quest;
+
+import java.util.ArrayList;
 
 public class Quest {
+    private static int contadorId;
+    private int id;
+
+    private static int quantidade;
     private String titulo;
     private int dificuldade; // 1 = Fácil, 2 = Médio, 3 = Difícil
     private String descricao;
@@ -16,6 +22,9 @@ public class Quest {
      * @param duracao     Duração da missão
      */
     public Quest(String titulo, int dificuldade, String descricao, String duracao) {
+        quantidade++;
+        contadorId++;
+        id = contadorId;
         this.titulo = titulo;
         this.dificuldade = dificuldade;
         this.descricao = descricao;
@@ -102,4 +111,23 @@ public class Quest {
     public void setFinalizada(boolean finalizada) {
         this.finalizada = finalizada;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+//    public String toString(){
+//        if(quantidade == 0){
+//            return "\n=== Suas Missões ==="
+//                   +"\nVocê ainda não tem missões!";
+//        }
+//        for (int i = 0; i < quantidade)
+//
+//        return "\n=== Suas Missões ==="
+//
+//    }
 }

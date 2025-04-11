@@ -1,4 +1,6 @@
-package PlayerEMissao;
+package entities.player;
+
+import entities.quest.Quest;
 
 import java.util.ArrayList;
 
@@ -7,6 +9,10 @@ import java.util.ArrayList;
  * Contém atributos do personagem, status e gerencia as missões do jogador.
  */
 public class Player {
+
+    private static int contadorId;
+    private int id;
+
     private String nome;
     private int idade;
     private int xp;
@@ -26,6 +32,8 @@ public class Player {
      * @param idade Idade do jogador
      */
     public Player(String nome, int idade) {
+        contadorId++;
+        id = contadorId;
         this.nome = nome;
         this.idade = idade;
         this.xp = 0;
@@ -214,7 +222,29 @@ public class Player {
         this.listaQuests = listaQuests;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getQuantidadeQuests() {
         return listaQuests.size();
+    }
+
+    public String toString(){
+        return "\n=== Status do Jogador ==="
+                + "\nId: " + id
+                + "\nNome: " + nome
+                + "\nIdade: " + idade + " anos"
+                + "\nNível: " + lvl
+                + "\nXP: " + xp + " / " + xpProximoNivel(lvl)
+                + "\nMana: " + mana
+                + "\nForça: " + forca
+                + "\nInteligência: " + inteligencia
+                + "\nConstituição: " + constituicao
+                + "\nModo Ofensivo: " + (ofensiva ? "Ativado" : "Desativado");
     }
 }

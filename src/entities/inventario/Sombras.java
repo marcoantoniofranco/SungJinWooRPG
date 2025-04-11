@@ -1,4 +1,4 @@
-package Inventario;
+package entities.inventario;
 
 public class Sombras {
     public String nomeSombra;

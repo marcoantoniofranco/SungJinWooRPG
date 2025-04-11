@@ -30,7 +30,7 @@ Um sistema RPG inspirado em Solo Leveling, implementado em Java. Evolua de um ca
 
 ### Módulo de Itens e Sombras
 
-- `Inventario`: Gerenciamento de itens
+- `entities.inventario`: Gerenciamento de itens
 - `Items`: Itens coletáveis
 - `Sombras`: Entidades do seu exército
 

@@ -1,4 +1,4 @@
-package Inventario;
+package entities.inventario;
 
 public class Items {
     public int itemId;

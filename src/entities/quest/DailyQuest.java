@@ -1,4 +1,4 @@
-package PlayerEMissao;
+package entities.quest;
 
 import java.util.Date;
 public class DailyQuest extends Quest {
