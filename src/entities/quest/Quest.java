@@ -13,14 +13,7 @@ public class Quest {
     private String duracao;
     private boolean finalizada;
 
-    /**
-     * Construtor da classe Quest.
-     * 
-     * @param titulo      Título da missão
-     * @param dificuldade Nível de dificuldade
-     * @param descricao   Descrição da missão
-     * @param duracao     Duração da missão
-     */
+    // Criar missão com título, dificuldade, descrição e duração
     public Quest(String titulo, int dificuldade, String descricao, String duracao) {
         quantidade++;
         contadorId++;
@@ -32,18 +25,12 @@ public class Quest {
         this.finalizada = false;
     }
 
-    /**
-     * Finaliza a missão.
-     */
+    // Marcar missão como finalizada
     public void finalizar() {
         finalizada = true;
     }
 
-    /**
-     * Calcula a quantidade de XP baseado na dificuldade e duração da missão.
-     * 
-     * @return Quantidade de XP calculada
-     */
+    // Calcular XP com base na dificuldade e duração
     public int calcularXP() {
         // XP base = 100
         int multiplicadorDificuldade = switch (dificuldade) {
@@ -61,11 +48,7 @@ public class Quest {
         return 100 * multiplicadorDificuldade * multiplicadorDuracao;
     }
 
-    /**
-     * Retorna o nome da dificuldade da missão.
-     * 
-     * @return Nome da dificuldade
-     */
+    // Obter nome da dificuldade
     public String getDificuldadeNome() {
         return NivelDificuldade.getNome(dificuldade);
     }

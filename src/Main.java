@@ -7,11 +7,7 @@ import entities.quest.Quest;
 public class Main {
     private final static Scanner sc = new Scanner(System.in);
 
-    /**
-     * Método principal do programa.
-     * 
-     * @param args Argumentos da linha de comando
-     */
+    // Inicia o jogo e mostra o menu principal
     public static void main(String[] args) {
         Player player = criarJogador();
         System.out.println(player);
@@ -55,14 +51,10 @@ public class Main {
         sc.close();
     }
 
-    /**
-     * Cria um novo jogador.
-     * 
-     * @return Jogador criado
-     */
+    // Coletar nome e idade para criar Player
     private static Player criarJogador() {
-            System.out.println("Digite o nome do seu personagem: ");
-            String nome = sc.nextLine();
+        System.out.println("Digite o nome do seu personagem: ");
+        String nome = sc.nextLine();
         int idade = 0;
         while(true) {
             try {
@@ -101,11 +93,7 @@ public class Main {
 //        System.out.println("Modo Ofensivo: " + (player.isOfensiva() ? "Ativado" : "Desativado"));
 //    }
 
-    /**
-     * Exibe as missões do jogador.
-     * 
-     * @param player Jogador
-     */
+    // Mostrar lista de missões do jogador
     private static void mostrarMissoes(Player player) {
         System.out.println("\n=== Suas Missões ===");
         if (player.getQuantidadeQuests() == 0) {
@@ -123,14 +111,9 @@ public class Main {
         }
     }
 
-    /**
-     * Cria uma nova missão para o jogador.
-     * 
-     * @param player Jogador
-     */
+    // Solicitar dados e adicionar nova missão
     private static void criarMissaoUsuario(Player player) {
         System.out.println("\n=== Criar Nova Missão ===");
-
 
         System.out.println("Digite o título da missão: ");
         String titulo = sc.nextLine();
@@ -193,11 +176,7 @@ public class Main {
         System.out.println("Missão " + duracao + " criada com sucesso!");
     }
 
-    /**
-     * Finaliza uma missão do jogador.
-     * 
-     * @param player Jogador
-     */
+    // Selecionar e finalizar missão
     private static void finalizarMissao(Player player) {
         if (player.getQuantidadeQuests() == 0) {
             System.out.println("Você não tem missões para finalizar!");

@@ -1,5 +1,6 @@
 package entities.inventario;
 
+// Container de sombras com capacidade limitada
 public class Sombras {
     public String nomeSombra;
     public String descSombra;
@@ -9,12 +10,7 @@ public class Sombras {
 
 
 
-    /**
-     * Construtor da classe Sombras.
-     * 
-     * @param nomeSombra Nome da sombra
-     * @param descSombra Descrição da sombra
-     */
+    // Criar sombra com nome e descrição
     public Sombras(String nomeSombra, String descSombra) {
         this.nomeSombra = nomeSombra;
         this.descSombra = descSombra;
@@ -23,23 +19,14 @@ public class Sombras {
         this.quantidadeItens = 0;
     }
 
-    /**
-     * Adiciona um item ao sombra.
-     * 
-     * @param item Item a ser adicionado
-     */
+    // Adicionar item à sombra
     public void adicionarItem(Items item) {
         if (item != null && quantidadeItens < 5) {
             itens[quantidadeItens++] = item;
         }
     }
 
-    /**
-     * Remove um item do sombra.
-     * 
-     * @param itemId ID do item a ser removido
-     * @return true se o item foi removido, false caso contrário
-     */
+    // Remover item da sombra por ID
     public boolean removerItem(int itemId) {
         for (int i = 0; i < quantidadeItens; i++) {
             if (itens[i].itemId == itemId) {
