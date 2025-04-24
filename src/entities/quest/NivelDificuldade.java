@@ -1,22 +1,38 @@
 package entities.quest;
 
-// Define níveis de dificuldade das missões
-public class NivelDificuldade {
-  public static final int FACIL = 1;
-  public static final int MEDIO = 2;
-  public static final int DIFICIL = 3;
+public enum NivelDificuldade {
+  FACIL(1, "Fácil"),
+  MEDIO(2, "Médio"),
+  DIFICIL(3, "Difícil");
 
-  // Obter nome do nível de dificuldade
-  public static String getNome(int valor) {
-    if (valor == MEDIO)
-      return "Médio";
-    if (valor == DIFICIL)
-      return "Difícil";
-    return "Fácil";
+  private final int valor;
+  private final String nome;
+
+  NivelDificuldade(int valor, String nome) {
+    this.valor = valor;
+    this.nome = nome;
   }
 
-  // Verificar valor de dificuldade válido
+  public int getValor() {
+    return valor;
+  }
+
+  public String getNome() {
+    return nome;
+  }
+
+  // Buscar o valor do enum por um int. ex: 1 == facil
+  public static NivelDificuldade intParaValor(int valor) {
+    for (NivelDificuldade nivel : values()) {
+      if (nivel.valor == valor) {
+        return nivel;
+      }
+    }
+    return null;
+  }
+
+  // Verificar se valor é válido
   public static boolean valorValido(int valor) {
-    return valor >= FACIL && valor <= DIFICIL;
+    return intParaValor(valor) != null;
   }
 }
