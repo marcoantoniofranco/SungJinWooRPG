@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import entities.player.Player;
+import entities.quest.NivelDificuldade;
 import entities.quest.Quest;
 
 public class Main {
@@ -56,6 +57,11 @@ public class Main {
         System.out.println("Digite o nome do seu personagem: ");
         String nome = sc.nextLine();
         int idade = 0;
+
+
+        // loop para perguntar idade do player, incluindo:
+        // try catch para tratar caso o usário insira uma letra
+        // if retornando um throw, caso usuário insira um valor menor que zero
         while(true) {
             try {
                 System.out.println("Digite a idade do seu personagem: ");
@@ -74,25 +80,6 @@ public class Main {
         return new Player(nome, idade);
     }
 
-//    /**
-//     * Exibe o status inicial do jogador.
-//     *
-//     * @param player Jogador
-//     */
-//    private static void mostrarStatusInicial(Player player) {
-//        System.out.println("\n=== Status do Jogador ===");
-//        System.out.println("Id: " + player.getId());
-//        System.out.println("Nome: " + player.getNome());
-//        System.out.println("Idade: " + player.getIdade() + " anos");
-//        System.out.println("Nível: " + player.getLvl());
-//        System.out.println("XP: " + player.getXp() + " / " + (int) player.xpProximoNivel(player.getLvl()));
-//        System.out.println("Mana: " + player.getMana());
-//        System.out.println("Força: " + player.getForca());
-//        System.out.println("Inteligência: " + player.getInteligencia());
-//        System.out.println("Constituição: " + player.getConstituicao());
-//        System.out.println("Modo Ofensivo: " + (player.isOfensiva() ? "Ativado" : "Desativado"));
-//    }
-
     // Mostrar lista de missões do jogador
     private static void mostrarMissoes(Player player) {
         System.out.println("\n=== Suas Missões ===");
@@ -101,9 +88,8 @@ public class Main {
             return;
         }
 
-        ArrayList<Quest> listaQuests = player.getListaQuests();
-        for (int i = 0; i < listaQuests.size(); i++) {
-            Quest quest = listaQuests.get(i);
+        for (int i = 0; i < player.getListaQuests().size(); i++) {
+            Quest quest = player.getListaQuests().get(i);
             System.out.println(quest.getId() + " - " + quest.getTitulo() +
                     " (XP: " + quest.calcularXP() +
                     ", Dificuldade: " + quest.getDificuldadeNome() +
@@ -121,7 +107,9 @@ public class Main {
         System.out.println("Digite a descrição da missão: ");
         String descricao = sc.nextLine();
 
-        int dificuldade = 0;
+        NivelDificuldade dificuldade = null;
+
+        // loop contendo try catch para tratar caso usuário insira uma letra
         while(true) {
             try {
                 System.out.println("Escolha o nível de dificuldade:");
@@ -129,7 +117,8 @@ public class Main {
                 System.out.println("2 - Médio");
                 System.out.println("3 - Difícil");
                 System.out.print("Escolha: ");
-                dificuldade = sc.nextInt();
+                int dificuldadeAux = sc.nextInt();
+                dificuldade = NivelDificuldade.intParaValor(dificuldadeAux);
                 break;
             } catch (Exception exception) {
                 System.out.println("\nErro, Insira um número\n" + exception);
@@ -139,6 +128,10 @@ public class Main {
         }
 
         int duracaoOpcao = 0;
+
+        // loop contendo:
+        // try catch para tratar entradas de letras
+        // sai do loop caso usuário digite certo, caso não continua e retorna o erro com throw
         while(true){
             try{
                 System.out.println("Escolha a duração da missão:");
@@ -147,7 +140,10 @@ public class Main {
                 System.out.println("3 - Mensal");
                 System.out.print("Escolha: ");
                 duracaoOpcao = sc.nextInt();
-                break;
+                if(duracaoOpcao <= 3){
+                    break;
+                }
+                throw new IllegalArgumentException("Insira a opção correta.");
             } catch (Exception exception) {
                 System.out.println("\nErro, Insira um número\n" + exception);
                 sc.nextLine();
@@ -187,9 +183,9 @@ public class Main {
         System.out.print("\nDigite o número da missão que deseja finalizar: ");
         int numeroMissao = sc.nextInt() - 1;
 
-        ArrayList<Quest> listaQuests = player.getListaQuests();
-        if (numeroMissao >= 0 && numeroMissao < listaQuests.size()) {
-            Quest quest = listaQuests.get(numeroMissao);
+
+        if (numeroMissao >= 0 && numeroMissao < player.getListaQuests().size()) {
+            Quest quest = player.getListaQuests().get(numeroMissao);
             if (!quest.isFinalizada()) {
                 int xpGanho = quest.calcularXP();
                 quest.finalizar();
