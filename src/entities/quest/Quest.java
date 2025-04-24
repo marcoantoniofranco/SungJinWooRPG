@@ -8,13 +8,13 @@ public class Quest {
 
     private static int quantidade;
     private String titulo;
-    private int dificuldade; // 1 = Fácil, 2 = Médio, 3 = Difícil
+    private NivelDificuldade dificuldade; // 1 = Fácil, 2 = Médio, 3 = Difícil
     private String descricao;
     private String duracao;
     private boolean finalizada;
 
     // Criar missão com título, dificuldade, descrição e duração
-    public Quest(String titulo, int dificuldade, String descricao, String duracao) {
+    public Quest(String titulo, NivelDificuldade dificuldade, String descricao, String duracao) {
         quantidade++;
         contadorId++;
         id = contadorId;
@@ -32,11 +32,10 @@ public class Quest {
 
     // Calcular XP com base na dificuldade e duração
     public int calcularXP() {
-        // XP base = 100
         int multiplicadorDificuldade = switch (dificuldade) {
-            case NivelDificuldade.MEDIO -> 2;
-            case NivelDificuldade.DIFICIL -> 3;
-            default -> 1;
+            case MEDIO -> 2;
+            case DIFICIL -> 3;
+            case FACIL -> 1;
         };
 
         int multiplicadorDuracao = switch (duracao) {
@@ -50,7 +49,7 @@ public class Quest {
 
     // Obter nome da dificuldade
     public String getDificuldadeNome() {
-        return NivelDificuldade.getNome(dificuldade);
+        return dificuldade.getNome();
     }
 
     // Getters e Setters
@@ -63,11 +62,11 @@ public class Quest {
         this.titulo = titulo;
     }
 
-    public int getDificuldade() {
+    public NivelDificuldade getDificuldade() {
         return dificuldade;
     }
 
-    public void setDificuldade(int dificuldade) {
+    public void setDificuldade(NivelDificuldade dificuldade) {
         this.dificuldade = dificuldade;
     }
 
