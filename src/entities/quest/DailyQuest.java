@@ -8,7 +8,7 @@ public class DailyQuest extends Quest {
     public Date resetarDaily;
 
     // Criar missão diária com nome, dificuldade e descrição
-    public DailyQuest(String titulo, int dificuldade, String descricao) {
+    public DailyQuest(String titulo, NivelDificuldade dificuldade, String descricao) {
         super(titulo, dificuldade, descricao, "diária");
         this.foiFeito = false;
         this.resetarDaily = new Date();
@@ -28,6 +28,9 @@ public class DailyQuest extends Quest {
         }
     }
 
+
+    // método calcularXP herdado da superclasse Quest
+    // polimorfismo aplicado com Override:
     @Override
     public int calcularXP() {
         int xpBase = super.calcularXP();
