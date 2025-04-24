@@ -27,4 +27,10 @@ public class DailyQuest extends Quest {
             this.resetarDaily = new Date();
         }
     }
+
+    @Override
+    public int calcularXP() {
+        int xpBase = super.calcularXP();
+        return xpBase + 20;
+    }
 }
