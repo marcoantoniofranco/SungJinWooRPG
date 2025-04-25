@@ -5,11 +5,8 @@ import entities.quest.Quest;
 
 import java.util.ArrayList;
 
-/**
- * CLASSE PRINCIPAL.
- * Classe que representa o jogador no sistema RPG.
- * Contém atributos do personagem, status e gerencia as missões do jogador.
- */
+// classe principal da aplicação 
+
 public class Player {
 
     private static int contadorId;
