@@ -21,7 +21,7 @@ public enum NivelDificuldade {
     return nome;
   }
 
-  // Buscar o valor do enum por um int. ex: 1 == facil
+  // Busca o valor do enum por um int. ex: 1 == facil
   public static NivelDificuldade intParaValor(int valor) {
     for (NivelDificuldade nivel : values()) {
       if (nivel.valor == valor) {
@@ -31,7 +31,7 @@ public enum NivelDificuldade {
     return null;
   }
 
-  // Verificar se valor é válido
+  // Verifica se valor passado é válido
   public static boolean valorValido(int valor) {
     return intParaValor(valor) != null;
   }

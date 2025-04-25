@@ -5,10 +5,12 @@ import java.util.ArrayList;
 public class Quest {
     private static int contadorId;
     private int id;
-
     private static int quantidade;
     private String titulo;
+
+    // COMPOSIÇÃO
     private NivelDificuldade dificuldade; // 1 = Fácil, 2 = Médio, 3 = Difícil
+
     private String descricao;
     private String duracao;
     private boolean finalizada;
@@ -38,13 +40,17 @@ public class Quest {
             case FACIL -> 1;
         };
 
-        int multiplicadorDuracao = switch (duracao) {
+        int multiplicadorDuracao = calcularMultiplicadorDuracao();
+
+        return 100 * multiplicadorDificuldade * multiplicadorDuracao;
+    }
+
+    protected int calcularMultiplicadorDuracao() {
+        return switch (duracao) {
             case "semanal" -> 2;
             case "mensal" -> 3;
             default -> 1; // diária
         };
-
-        return 100 * multiplicadorDificuldade * multiplicadorDuracao;
     }
 
     // Obter nome da dificuldade
@@ -102,14 +108,4 @@ public class Quest {
         this.id = id;
     }
 
-//    public String toString(){
-//        if(quantidade == 0){
-//            return "\n=== Suas Missões ==="
-//                   +"\nVocê ainda não tem missões!";
-//        }
-//        for (int i = 0; i < quantidade)
-//
-//        return "\n=== Suas Missões ==="
-//
-//    }
 }

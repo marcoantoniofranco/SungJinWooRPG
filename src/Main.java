@@ -72,7 +72,7 @@ public class Main {
                 }
                 break;
             } catch (Exception e) {
-                System.out.println("Inisira um número (positivo).\n" + e.getMessage());
+                System.out.println("Inisira um número.\n" + e.getMessage());
                 sc.nextLine();
             }
         }

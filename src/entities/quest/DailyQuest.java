@@ -29,11 +29,19 @@ public class DailyQuest extends Quest {
     }
 
 
-    // método calcularXP herdado da superclasse Quest
-    // polimorfismo aplicado com Override:
+    // método calcularXP herdado, para que missoes do tipo DailyQuest recebam menos xp
+    // POLIMORFISMO aplicado
     @Override
     public int calcularXP() {
         int xpBase = super.calcularXP();
-        return xpBase + 20;
+        return xpBase / 2;
+    }
+
+
+    // uma quest diária sempre tem multiplicador 1
+    // POLIMORFISMO aplicado
+    @Override
+    protected int calcularMultiplicadorDuracao() {
+        return 1;
     }
 }
