@@ -31,13 +31,7 @@ public class Player {
     // AGREGAÇÃO
     private Inventario inventario;
 
-    /**
-     * Construtor da classe Player.
-     * Inicializa um novo jogador com valores padrão.
-     * 
-     * @param nome  Nome do jogador
-     * @param idade Idade do jogador
-     */
+    // construtor padrão
     public Player(String nome, int idade) {
         contadorId++;
         id = contadorId;
