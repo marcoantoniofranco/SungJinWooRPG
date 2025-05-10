@@ -1,13 +1,12 @@
 package entities.player;
 
+import entities.inventario.Inventario;
 import entities.quest.Quest;
 
 import java.util.ArrayList;
 
-/**
- * Classe que representa o jogador no sistema RPG.
- * Contém atributos do personagem, status e gerencia as missões do jogador.
- */
+// classe principal da aplicação 
+
 public class Player {
 
     private static int contadorId;
@@ -22,15 +21,14 @@ public class Player {
     private int inteligencia;
     private int constituicao;
     private boolean ofensiva;
+
+    // COMPOSIÇÃO
     private ArrayList<Quest> listaQuests;
 
-    /**
-     * Construtor da classe Player.
-     * Inicializa um novo jogador com valores padrão.
-     * 
-     * @param nome  Nome do jogador
-     * @param idade Idade do jogador
-     */
+    // AGREGAÇÃO
+    private Inventario inventario;
+
+    // construtor padrão
     public Player(String nome, int idade) {
         contadorId++;
         id = contadorId;
@@ -44,6 +42,7 @@ public class Player {
         this.constituicao = 0;
         this.ofensiva = false;
         this.listaQuests = new ArrayList<>();
+        this.inventario = new Inventario();
     }
 
     /**
@@ -82,18 +81,15 @@ public class Player {
      * @return Quantidade de XP necessária para o próximo nível
      */
     public double xpProximoNivel(int lvl) {
-        if (lvl < 50) {
+        if (lvl < 30) {
             return lvl * 100;
         }
 
-        if (lvl <= 30) {
-            return lvl * 150;
-        }
-        if (lvl > 30 && lvl <= 60) {
-            return lvl * 140;
+        if (lvl >= 30 && lvl < 60) {
+            return lvl * 120;
         }
 
-        return lvl * 130;
+        return lvl * 140;
     }
 
     /**
@@ -108,7 +104,7 @@ public class Player {
     }
 
     /**
-     * Aumenta o nível do jogador diretamente e reseta o XP para 100.
+     * Aumenta o nível do jogador diretamente e reseta o xp para o xp atual menos o gap para o proximo nivel.
      */
     public void subirNivel() {
         xp = (int) (xp - xpProximoNivel(lvl));
