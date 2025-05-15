@@ -1,12 +1,12 @@
 package entities.inventario;
 
-public class Itens {
+public class Item {
     private int itemId;
     private String nomeItem;
     private String descItem;
 
     // Criar item com id, nome e descrição
-    public Itens(int itemId, String nomeItem, String descItem) {
+    public Item(int itemId, String nomeItem, String descItem) {
         this.itemId = itemId;
         this.nomeItem = nomeItem;
         this.descItem = descItem;
@@ -14,10 +14,6 @@ public class Itens {
 
     public int getItemId() {
         return itemId;
-    }
-
-    public void setItemId(int itemId) {
-        this.itemId = itemId;
     }
 
     public String getNomeItem() {
@@ -34,5 +30,10 @@ public class Itens {
 
     public void setDescItem(String descItem) {
         this.descItem = descItem;
+    }
+
+    @Override
+    public String toString() {
+        return nomeItem + " - " + descItem;
     }
 }

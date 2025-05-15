@@ -25,7 +25,7 @@ public class Player {
     // COMPOSIÇÃO
     private ArrayList<Quest> listaQuests;
 
-    // AGREGAÇÃO
+    // COMPOSIÇÃO
     private Inventario inventario;
 
     // construtor padrão
@@ -62,6 +62,23 @@ public class Player {
             System.out.println("Operação de missão finalizada");
         }
     }
+
+//    public void concluirQuest(int indice) {
+//        if (indice < 0 || indice >= listaQuests.size()) {
+//            System.out.println("Missão inválida.");
+//            return;
+//        }
+//
+//        Quest q = listaQuests.get(indice);
+//        if (!q.isFinalizada()) {
+//            q.finalizar();
+//            int xpGanho = q.calcularXP();
+//            adicionarXP(xpGanho);
+//            System.out.println("Missão '" + q.getTitulo() + "' finalizada! XP ganho: " + xpGanho);
+//        } else {
+//            System.out.println("Missão já foi finalizada.");
+//        }
+//    }
 
     /**
      * Adiciona pontos de experiência ao jogador e verifica se subiu de nível.
@@ -158,6 +175,9 @@ public class Player {
     }
 
     public void setXp(int xp) {
+        if(xp < 0){
+            xp = 0;
+        }
         this.xp = xp;
         verificarSubirNivel();
     }
@@ -220,10 +240,6 @@ public class Player {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getQuantidadeQuests() {

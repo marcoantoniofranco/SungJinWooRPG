@@ -1,34 +1,38 @@
 package entities.inventario;
 
 public class Inventario {
-    private int quantidade;
+    private int capacidadeMax;
+    private int totalItens;
 
     // AGREGAÇÃO
-    private Itens[] itens;
+    private Item[] itens;
 
     // Construtor padrão
     public Inventario(){
-        this.quantidade = 20;
-        this.itens = new Itens[quantidade];
+        this.capacidadeMax = 20;
+        this.totalItens = 0;
+        this.itens = new Item[capacidadeMax];
     }
 
     // Adicionar item ao inventário se houver espaço
-    public void adicionarItem(Itens item) {
-        if (item != null && quantidade < 20) {
-            itens[quantidade++] = item;
+    public void adicionarItem(Item item) {
+        if (item != null && totalItens < capacidadeMax) {
+            itens[totalItens++] = item;
+            System.out.println("item adicionado.");
         }
+        if(totalItens >= capacidadeMax){
+            System.out.println("inventario cheio.");
+        }
+
     }
 
-    // Remover item por ID e compactar inventário
-    public boolean removerItem(int itemId) {
-        for (int i = 0; i < quantidade; i++) {
+    // Remover item por ID
+    public void removerItem(int itemId) {
+        for (int i = 0; i < totalItens; i++) {
             if (itens[i].getItemId() == itemId) {
-                itens[i] = itens[--quantidade];
-                itens[quantidade] = null;
-                return true;
+                itens[i] = null;
             }
         }
-        return false;
     }
 }
 

@@ -8,7 +8,7 @@ public class Quest {
     private static int quantidade;
     private String titulo;
 
-    // COMPOSIÇÃO
+    // ASSOCIAÇÃO
     private NivelDificuldade dificuldade; // 1 = Fácil, 2 = Médio, 3 = Difícil
 
     private String descricao;
@@ -104,8 +104,9 @@ public class Quest {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    @Override
+    public String toString() {
+        return "Quest #" + id + " - " + titulo + " (" + getDificuldadeNome() + ")";
     }
 
 }
