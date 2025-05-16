@@ -7,6 +7,7 @@ public class MonthlyQuest extends Quest {
     private boolean foiFeito;
     private Date resetarQuest;
 
+
     public MonthlyQuest(String titulo, NivelDificuldade dificuldade, String descricao) {
         super(titulo, dificuldade, descricao, "mensal");
         this.foiFeito = false;

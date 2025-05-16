@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 import entities.player.Player;
@@ -191,8 +192,8 @@ public class Main {
                 quest.finalizar();
                 player.adicionarXP(xpGanho);
                 System.out.println("Missão finalizada! Você ganhou " + xpGanho + " XP!");
-                System.out
-                        .println("XP atual: " + player.getXp() + " / " + (int) player.xpProximoNivel(player.getLvl()));
+                System.out.println("XP atual: " + player.getXp() + " / " + (int) player.xpProximoNivel(player.getLvl()));
+                player.addQuestAoHistorico(quest, player);
             } else {
                 System.out.println("Esta missão já foi finalizada!");
             }

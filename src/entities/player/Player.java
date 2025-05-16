@@ -4,6 +4,9 @@ import entities.inventario.Inventario;
 import entities.quest.Quest;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 // classe principal da aplicação 
 
@@ -28,6 +31,9 @@ public class Player {
     // COMPOSIÇÃO
     private Inventario inventario;
 
+    // COLEÇÃO USANDO MAP E INSTANCIANDO HASHMAP
+    private Map<Quest, Date> questsFinalizadas;
+
     // construtor padrão
     public Player(String nome, int idade) {
         contadorId++;
@@ -43,6 +49,7 @@ public class Player {
         this.ofensiva = false;
         this.listaQuests = new ArrayList<>();
         this.inventario = new Inventario();
+        this.questsFinalizadas =  new HashMap<Quest, Date>();
     }
 
     /**
@@ -152,7 +159,19 @@ public class Player {
         return true;
     }
 
+    public void addQuestAoHistorico(Quest questFinalizada, Player player){
+        this.questsFinalizadas.put(questFinalizada, questFinalizada.getDataFinalizacao());
+    }
+
+    public void visualizarQuestsFinalizadas(){
+        System.out.println(questsFinalizadas);
+    }
+
     // Getters e Setters
+
+    public Map<Quest, Date> getQuestsFinalizadas(){
+        return this.questsFinalizadas;
+    }
 
     public String getNome() {
         return nome;

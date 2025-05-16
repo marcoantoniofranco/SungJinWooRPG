@@ -1,6 +1,7 @@
 package entities.quest;
 
-import java.util.ArrayList;
+import java.time.Instant;
+import java.util.*;
 
 public class Quest {
     private static int contadorId;
@@ -14,6 +15,8 @@ public class Quest {
     private String descricao;
     private String duracao;
     private boolean finalizada;
+
+    private Date dataFinalizacao;
 
     // Criar missão com título, dificuldade, descrição e duração
     public Quest(String titulo, NivelDificuldade dificuldade, String descricao, String duracao) {
@@ -29,7 +32,9 @@ public class Quest {
 
     // Marcar missão como finalizada
     public void finalizar() {
-        finalizada = true;
+        Date dataAtual =  new Date();
+        this.dataFinalizacao = dataAtual;
+        this.finalizada = true;
     }
 
     // Calcular XP com base na dificuldade e duração
@@ -59,6 +64,10 @@ public class Quest {
     }
 
     // Getters e Setters
+
+    public Date getDataFinalizacao(){
+        return this.dataFinalizacao;
+    }
 
     public String getTitulo() {
         return titulo;
