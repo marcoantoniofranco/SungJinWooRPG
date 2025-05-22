@@ -165,6 +165,7 @@ public class Player {
 
     public void visualizarQuestsFinalizadas(){
         System.out.println(questsFinalizadas);
+
     }
 
     // Getters e Setters

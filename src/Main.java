@@ -22,7 +22,8 @@ public class Main {
             System.out.println("2 - Ver Status");
             System.out.println("3 - Ver Missões");
             System.out.println("4 - Finalizar Missão");
-            System.out.println("5 - Sair");
+            System.out.println("5 - Mostrar Quests Feitas");
+            System.out.println("6 - Sair");
             System.out.print("Escolha uma opção: ");
 
             int opcao = sc.nextInt();
@@ -42,6 +43,9 @@ public class Main {
                     finalizarMissao(player);
                     break;
                 case 5:
+                    player.visualizarQuestsFinalizadas();
+                    break;
+                case 6:
                     continuar = false;
                     break;
                 default:
@@ -84,17 +88,15 @@ public class Main {
     // Mostrar lista de missões do jogador
     private static void mostrarMissoes(Player player) {
         System.out.println("\n=== Suas Missões ===");
-        if (player.getQuantidadeQuests() == 0) {
-            System.out.println("Você ainda não tem missões!");
-            return;
-        }
 
         for (int i = 0; i < player.getListaQuests().size(); i++) {
             Quest quest = player.getListaQuests().get(i);
-            System.out.println(quest.getId() + " - " + quest.getTitulo() +
-                    " (XP: " + quest.calcularXP() +
-                    ", Dificuldade: " + quest.getDificuldadeNome() +
-                    ", Duração: " + quest.getDuracao() + ")");
+            if(!quest.isFinalizada()) {
+                System.out.println(quest.getId() + " - " + quest.getTitulo() +
+                        " (XP: " + quest.calcularXP() +
+                        ", Dificuldade: " + quest.getDificuldadeNome() +
+                        ", Duração: " + quest.getDuracao() + ")");
+            }
         }
     }
 
