@@ -1,13 +1,15 @@
 package entities.player;
 
+import entities.quest.NivelDificuldade;
 import entities.quest.Quest;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
-/**
- * Classe que representa o jogador no sistema RPG.
- * Contém atributos do personagem, status e gerencia as missões do jogador.
- */
+// classe principal da aplicação 
+
 public class Player {
 
     private static int contadorId;
@@ -22,15 +24,17 @@ public class Player {
     private int inteligencia;
     private int constituicao;
     private boolean ofensiva;
+
+    // COMPOSIÇÃO
     private ArrayList<Quest> listaQuests;
 
-    /**
-     * Construtor da classe Player.
-     * Inicializa um novo jogador com valores padrão.
-     * 
-     * @param nome  Nome do jogador
-     * @param idade Idade do jogador
-     */
+    // COMPOSIÇÃO
+    private Inventario inventario;
+
+    // COLEÇÃO USANDO MAP E INSTANCIANDO HASHMAP
+    private Map<Quest, Date> questsFinalizadas;
+
+    // construtor padrão
     public Player(String nome, int idade) {
         contadorId++;
         id = contadorId;
@@ -44,6 +48,8 @@ public class Player {
         this.constituicao = 0;
         this.ofensiva = false;
         this.listaQuests = new ArrayList<>();
+        this.inventario = new Inventario();
+        this.questsFinalizadas =  new HashMap<Quest, Date>();
     }
 
     /**
@@ -61,6 +67,132 @@ public class Player {
             System.out.println("Erro: " + e.getMessage());
         } finally {
             System.out.println("Operação de missão finalizada");
+        }
+    }
+
+    public void concluirQuest(int indice) {
+        if (indice < 0 || indice >= listaQuests.size()) {
+            System.out.println("Missão inválida.");
+            return;
+        }
+
+        Quest quest = listaQuests.get(indice);
+        if (!quest.isFinalizada()) {
+            quest.finalizar();
+            int xpGanho = quest.calcularXP();
+            adicionarXP(xpGanho);
+            this.addQuestAoHistorico(quest, this);
+            System.out.println("Missão '" + quest.getTitulo() + "' finalizada! XP ganho: " + xpGanho);
+        } else {
+            System.out.println("Missão já foi finalizada.");
+        }
+    }
+
+    public void criarMissaoUsuario(String titulo, String descricao, NivelDificuldade dificuldade, int duracaoOpcao, Player player) {
+//        NivelDificuldade dificuldade = null;
+
+//        // loop contendo try catch para tratar caso usuário insira uma letra
+//        while(true) {
+//            try {
+//                System.out.println("Escolha o nível de dificuldade:");
+//                System.out.println("1 - Fácil");
+//                System.out.println("2 - Médio");
+//                System.out.println("3 - Difícil");
+//                System.out.print("Escolha: ");
+//                int dificuldadeAux = sc.nextInt();
+//                dificuldade = NivelDificuldade.intParaValor(dificuldadeAux);
+//                break;
+//            } catch (Exception exception) {
+//                System.out.println("\nErro, Insira um número\n" + exception);
+//                sc.nextLine();
+//
+//            }
+//        }
+//
+//        int duracaoOpcao = 0;
+//
+//        // loop contendo:
+//        // try catch para tratar entradas de letras
+//        // sai do loop caso usuário digite certo, caso não continua e retorna o erro com throw
+//        while(true){
+//            try{
+//                System.out.println("Escolha a duração da missão:");
+//                System.out.println("1 - Diária");
+//                System.out.println("2 - Semanal");
+//                System.out.println("3 - Mensal");
+//                System.out.print("Escolha: ");
+//                duracaoOpcao = sc.nextInt();
+//                if(duracaoOpcao <= 3){
+//                    break;
+//                }
+//                throw new IllegalArgumentException("Insira a opção correta.");
+//            } catch (Exception exception) {
+//                System.out.println("\nErro, Insira um número\n" + exception);
+//                sc.nextLine();
+//
+//            }
+//        }
+
+        String duracao;
+
+        switch (duracaoOpcao) {
+            case 1:
+                duracao = "diária";
+                break;
+            case 2:
+                duracao = "semanal";
+                break;
+            case 3:
+                duracao = "mensal";
+                break;
+            default:
+                duracao = "diária";
+        }
+
+        Quest novaQuest = new Quest(titulo, dificuldade, descricao, duracao);
+        player.adicionarQuest(novaQuest);
+        System.out.println("Missão " + duracao + " criada com sucesso!");
+    }
+
+    public void finalizarMissao(Player player, int numeroMissao) {
+//        if (player.getQuantidadeQuests() == 0) {
+//            System.out.println("Você não tem missões para finalizar!");
+//            return;
+//        }
+
+//        mostrarMissoes(player);
+//        System.out.print("\nDigite o número da missão que deseja finalizar: ");
+//        int numeroMissao = sc.nextInt() - 1;
+
+
+        if (numeroMissao >= 0 && numeroMissao < player.getListaQuests().size()) {
+            Quest quest = player.getListaQuests().get(numeroMissao);
+            if (!quest.isFinalizada()) {
+                int xpGanho = quest.calcularXP();
+                quest.finalizar();
+                player.adicionarXP(xpGanho);
+                System.out.println("Missão finalizada! Você ganhou " + xpGanho + " XP!");
+                System.out.println("XP atual: " + player.getXp() + " / " + (int) player.xpProximoNivel(player.getLvl()));
+                player.addQuestAoHistorico(quest, player);
+            } else {
+                System.out.println("Esta missão já foi finalizada!");
+            }
+        } else {
+            System.out.println("Número de missão inválido!");
+        }
+    }
+
+    public void mostrarMissoes(Player player) {
+        System.out.println("\n=== Suas Missões ===");
+
+        for (int i = 0; i < player.getListaQuests().size(); i++) {
+            Quest quest = player.getListaQuests().get(i);
+            if(!quest.isFinalizada()) {
+                System.out.println(quest.getId() + " - " + quest.getTitulo() +
+                        " (XP: " + quest.calcularXP() +
+                        ", Dificuldade: " + quest.getDificuldadeNome() +
+                        ", Duração: " + quest.getDuracao() + ")");
+            }
         }
     }
 
@@ -82,18 +214,15 @@ public class Player {
      * @return Quantidade de XP necessária para o próximo nível
      */
     public double xpProximoNivel(int lvl) {
-        if (lvl < 50) {
+        if (lvl < 30) {
             return lvl * 100;
         }
 
-        if (lvl <= 30) {
-            return lvl * 150;
-        }
-        if (lvl > 30 && lvl <= 60) {
-            return lvl * 140;
+        if (lvl >= 30 && lvl < 60) {
+            return lvl * 120;
         }
 
-        return lvl * 130;
+        return lvl * 140;
     }
 
     /**
@@ -108,7 +237,7 @@ public class Player {
     }
 
     /**
-     * Aumenta o nível do jogador diretamente e reseta o XP para 100.
+     * Aumenta o nível do jogador diretamente e reseta o xp para o xp atual menos o gap para o proximo nivel.
      */
     public void subirNivel() {
         xp = (int) (xp - xpProximoNivel(lvl));
@@ -139,7 +268,20 @@ public class Player {
         return true;
     }
 
+    public void addQuestAoHistorico(Quest questFinalizada, Player player){
+        this.questsFinalizadas.put(questFinalizada, questFinalizada.getDataFinalizacao());
+    }
+
+    public void visualizarQuestsFinalizadas(){
+        System.out.println(questsFinalizadas);
+
+    }
+
     // Getters e Setters
+
+    public Map<Quest, Date> getQuestsFinalizadas(){
+        return this.questsFinalizadas;
+    }
 
     public String getNome() {
         return nome;
@@ -162,6 +304,9 @@ public class Player {
     }
 
     public void setXp(int xp) {
+        if(xp < 0){
+            xp = 0;
+        }
         this.xp = xp;
         verificarSubirNivel();
     }
@@ -224,10 +369,6 @@ public class Player {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getQuantidadeQuests() {
