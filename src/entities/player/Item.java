@@ -1,4 +1,4 @@
-package entities.inventario;
+package entities.player;
 
 public class Item {
     private int itemId;

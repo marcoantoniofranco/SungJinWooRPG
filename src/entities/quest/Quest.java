@@ -1,5 +1,7 @@
 package entities.quest;
 
+import entities.player.Player;
+
 import java.time.Instant;
 import java.util.*;
 

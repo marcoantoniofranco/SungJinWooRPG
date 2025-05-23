@@ -1,6 +1,6 @@
 package entities.player;
 
-import entities.inventario.Inventario;
+import entities.quest.NivelDificuldade;
 import entities.quest.Quest;
 
 import java.util.ArrayList;
@@ -70,22 +70,131 @@ public class Player {
         }
     }
 
-//    public void concluirQuest(int indice) {
-//        if (indice < 0 || indice >= listaQuests.size()) {
-//            System.out.println("Missão inválida.");
-//            return;
+    public void concluirQuest(int indice) {
+        if (indice < 0 || indice >= listaQuests.size()) {
+            System.out.println("Missão inválida.");
+            return;
+        }
+
+        Quest quest = listaQuests.get(indice);
+        if (!quest.isFinalizada()) {
+            quest.finalizar();
+            int xpGanho = quest.calcularXP();
+            adicionarXP(xpGanho);
+            this.addQuestAoHistorico(quest, this);
+            System.out.println("Missão '" + quest.getTitulo() + "' finalizada! XP ganho: " + xpGanho);
+        } else {
+            System.out.println("Missão já foi finalizada.");
+        }
+    }
+
+    public void criarMissaoUsuario(String titulo, String descricao, NivelDificuldade dificuldade, int duracaoOpcao, Player player) {
+//        NivelDificuldade dificuldade = null;
+
+//        // loop contendo try catch para tratar caso usuário insira uma letra
+//        while(true) {
+//            try {
+//                System.out.println("Escolha o nível de dificuldade:");
+//                System.out.println("1 - Fácil");
+//                System.out.println("2 - Médio");
+//                System.out.println("3 - Difícil");
+//                System.out.print("Escolha: ");
+//                int dificuldadeAux = sc.nextInt();
+//                dificuldade = NivelDificuldade.intParaValor(dificuldadeAux);
+//                break;
+//            } catch (Exception exception) {
+//                System.out.println("\nErro, Insira um número\n" + exception);
+//                sc.nextLine();
+//
+//            }
 //        }
 //
-//        Quest q = listaQuests.get(indice);
-//        if (!q.isFinalizada()) {
-//            q.finalizar();
-//            int xpGanho = q.calcularXP();
-//            adicionarXP(xpGanho);
-//            System.out.println("Missão '" + q.getTitulo() + "' finalizada! XP ganho: " + xpGanho);
-//        } else {
-//            System.out.println("Missão já foi finalizada.");
+//        int duracaoOpcao = 0;
+//
+//        // loop contendo:
+//        // try catch para tratar entradas de letras
+//        // sai do loop caso usuário digite certo, caso não continua e retorna o erro com throw
+//        while(true){
+//            try{
+//                System.out.println("Escolha a duração da missão:");
+//                System.out.println("1 - Diária");
+//                System.out.println("2 - Semanal");
+//                System.out.println("3 - Mensal");
+//                System.out.print("Escolha: ");
+//                duracaoOpcao = sc.nextInt();
+//                if(duracaoOpcao <= 3){
+//                    break;
+//                }
+//                throw new IllegalArgumentException("Insira a opção correta.");
+//            } catch (Exception exception) {
+//                System.out.println("\nErro, Insira um número\n" + exception);
+//                sc.nextLine();
+//
+//            }
 //        }
-//    }
+
+        String duracao;
+
+        switch (duracaoOpcao) {
+            case 1:
+                duracao = "diária";
+                break;
+            case 2:
+                duracao = "semanal";
+                break;
+            case 3:
+                duracao = "mensal";
+                break;
+            default:
+                duracao = "diária";
+        }
+
+        Quest novaQuest = new Quest(titulo, dificuldade, descricao, duracao);
+        player.adicionarQuest(novaQuest);
+        System.out.println("Missão " + duracao + " criada com sucesso!");
+    }
+
+    public void finalizarMissao(Player player, int numeroMissao) {
+//        if (player.getQuantidadeQuests() == 0) {
+//            System.out.println("Você não tem missões para finalizar!");
+//            return;
+//        }
+
+//        mostrarMissoes(player);
+//        System.out.print("\nDigite o número da missão que deseja finalizar: ");
+//        int numeroMissao = sc.nextInt() - 1;
+
+
+        if (numeroMissao >= 0 && numeroMissao < player.getListaQuests().size()) {
+            Quest quest = player.getListaQuests().get(numeroMissao);
+            if (!quest.isFinalizada()) {
+                int xpGanho = quest.calcularXP();
+                quest.finalizar();
+                player.adicionarXP(xpGanho);
+                System.out.println("Missão finalizada! Você ganhou " + xpGanho + " XP!");
+                System.out.println("XP atual: " + player.getXp() + " / " + (int) player.xpProximoNivel(player.getLvl()));
+                player.addQuestAoHistorico(quest, player);
+            } else {
+                System.out.println("Esta missão já foi finalizada!");
+            }
+        } else {
+            System.out.println("Número de missão inválido!");
+        }
+    }
+
+    public void mostrarMissoes(Player player) {
+        System.out.println("\n=== Suas Missões ===");
+
+        for (int i = 0; i < player.getListaQuests().size(); i++) {
+            Quest quest = player.getListaQuests().get(i);
+            if(!quest.isFinalizada()) {
+                System.out.println(quest.getId() + " - " + quest.getTitulo() +
+                        " (XP: " + quest.calcularXP() +
+                        ", Dificuldade: " + quest.getDificuldadeNome() +
+                        ", Duração: " + quest.getDuracao() + ")");
+            }
+        }
+    }
 
     /**
      * Adiciona pontos de experiência ao jogador e verifica se subiu de nível.
