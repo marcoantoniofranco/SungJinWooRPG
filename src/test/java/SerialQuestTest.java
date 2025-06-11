@@ -3,6 +3,7 @@ import com.google.gson.GsonBuilder;
 import org.junit.jupiter.api.Test;
 import projeto.entities.quest.NivelDificuldade;
 import projeto.entities.quest.Quest;
+import projeto.entities.quest.QuestFactory;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -10,7 +11,9 @@ public class SerialQuestTest {
 
     @Test
     void QuestParaJson() {
-        Quest quest = new Quest("Corrida", NivelDificuldade.DIFICIL, "Correr de 5 a 10 km", "diaria");
+        Quest quest = QuestFactory.criarQuest("Corrida", NivelDificuldade.FACIL, "Correr de 5 a 10 km", "mensal");
+
+        System.out.println(quest.getEstrategiaXp());
 
         quest.finalizar();
 
@@ -20,8 +23,7 @@ public class SerialQuestTest {
 
         System.out.println(json);
 
-        assertTrue(json.contains("Corrida"));
-        assertTrue(json.contains("DIFICIL"));
+        assertTrue(json.contains("FACIL"));
     }
 
     @Test
@@ -34,7 +36,9 @@ public class SerialQuestTest {
             "descricao": "Correr de 5 a 10 km",
             "duracao": "diária",
             "finalizada": false,
-            "dataFinalizacao": null
+            "dataFinalizacao": null,
+            "estrategiaXp" : 
+            
         }
         """;
 
@@ -46,6 +50,8 @@ public class SerialQuestTest {
         assertTrue(quest.getDificuldade() == NivelDificuldade.DIFICIL);
         System.out.println("objeto Quest criado: " + quest);
     }
+
+
 
 
 

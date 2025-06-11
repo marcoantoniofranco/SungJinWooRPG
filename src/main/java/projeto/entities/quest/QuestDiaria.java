@@ -8,8 +8,8 @@ public class QuestDiaria extends Quest {
     public Date resetarDaily;
 
     // Criar missão diária com nome, dificuldade e descrição
-    public QuestDiaria(String titulo, NivelDificuldade dificuldade, String descricao) {
-        super(titulo, dificuldade, descricao, "diária");
+    public QuestDiaria(String titulo, NivelDificuldade dificuldade, String descricao, EstrategiaXp estrategiaXp) {
+        super(titulo, dificuldade, descricao, estrategiaXp);
         this.foiFeito = false;
         this.resetarDaily = new Date();
     }
@@ -33,8 +33,7 @@ public class QuestDiaria extends Quest {
     // POLIMORFISMO aplicado
     @Override
     public int calcularXP() {
-        int xpBase = super.calcularXP();
-        return xpBase / 2;
+        return estrategiaXp.calcularXP();
     }
 
 

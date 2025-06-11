@@ -7,8 +7,8 @@ public class QuestSemanal extends Quest {
     private boolean foiFeito;
     private Date resetarQuest;
 
-    public QuestSemanal(String titulo, NivelDificuldade dificuldade, String descricao) {
-        super(titulo, dificuldade, descricao, "semanal");
+    public QuestSemanal(String titulo, NivelDificuldade dificuldade, String descricao, EstrategiaXp estrategiaXp) {
+        super(titulo, dificuldade, descricao, estrategiaXp);
         this.foiFeito = false;
         this.resetarQuest = new Date();
     }
@@ -17,8 +17,7 @@ public class QuestSemanal extends Quest {
     // POLIMORFISMO aplicado
     @Override
     public int calcularXP() {
-        int xpBase = super.calcularXP();
-        return xpBase * 2;
+        return estrategiaXp.calcularXP();
     }
 
     // uma quest diária sempre tem multiplicador 1

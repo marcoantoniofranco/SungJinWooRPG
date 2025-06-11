@@ -4,32 +4,42 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import projeto.entities.player.Player;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.*;
 
-public class Quest {
-    private static int contadorId;
-    private int id;
-    private String titulo;
+//super classe das quests
+public class Quest implements Serializable {
+    protected static int contadorId;
+    protected int id;
+    protected String titulo;
 
     // ASSOCIAÇÃO
-    private NivelDificuldade dificuldade; // 1 = Fácil, 2 = Médio, 3 = Difícil
+    protected NivelDificuldade dificuldade; // 1 = Fácil, 2 = Médio, 3 = Difícil
 
-    private String descricao;
-    private String duracao;
-    private boolean finalizada;
+    protected String descricao;
+    protected String duracao;
+    protected boolean finalizada;
 
-    private Date dataFinalizacao;
+    protected Date dataFinalizacao;
+
+    protected EstrategiaXp estrategiaXp;
+
+    protected int questXp;
 
     // Criar missão com título, dificuldade, descrição e duração
-    public Quest(String titulo, NivelDificuldade dificuldade, String descricao, String duracao) {
+    public Quest(String titulo, NivelDificuldade dificuldade, String descricao, EstrategiaXp extrategiaXp) {
         contadorId++;
         id = contadorId;
         this.titulo = titulo;
         this.dificuldade = dificuldade;
         this.descricao = descricao;
-        this.duracao = duracao;
+        this.estrategiaXp = extrategiaXp;
+        this.duracao = extrategiaXp.toString();
         this.finalizada = false;
+        this.questXp = extrategiaXp.calcularXP() * dificuldade.getValor();
     }
 
     public Quest() {
@@ -62,6 +72,8 @@ public class Quest {
             default -> 1; // diária
         };
     }
+
+
 
     // Obter nome da dificuldade
     public String getDificuldadeNome() {
@@ -118,9 +130,21 @@ public class Quest {
         return id;
     }
 
+    public EstrategiaXp getEstrategiaXp() {
+        return estrategiaXp;
+    }
+
+    public void setEstrategiaXp(EstrategiaXp estrategiaXp) {
+        this.estrategiaXp = estrategiaXp;
+    }
+
     @Override
     public String toString() {
-        return "Quest #" + id + " - " + titulo + " (" + getDificuldadeNome() + ")";
+        return "Quest #"
+                + id
+                + " - " + titulo + " (" + getDificuldadeNome()
+                + ")"
+                + " - xp quest: " + (dificuldade.getValor() * estrategiaXp.calcularXP());
     }
 
 }

@@ -8,8 +8,8 @@ public class QuestMensal extends Quest {
     private Date resetarQuest;
 
 
-    public QuestMensal(String titulo, NivelDificuldade dificuldade, String descricao) {
-        super(titulo, dificuldade, descricao, "mensal");
+    public QuestMensal(String titulo, NivelDificuldade dificuldade, String descricao, EstrategiaXp estrategiaXp) {
+        super(titulo, dificuldade, descricao, estrategiaXp);
         this.foiFeito = false;
         this.resetarQuest = new Date();
     }
@@ -18,8 +18,7 @@ public class QuestMensal extends Quest {
     // POLIMORFISMO aplicado
     @Override
     public int calcularXP() {
-        int xpBase = super.calcularXP();
-        return xpBase * 2;
+        return estrategiaXp.calcularXP();
     }
 
     // uma quest diária sempre tem multiplicador 1

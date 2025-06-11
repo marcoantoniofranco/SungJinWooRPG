@@ -1,6 +1,8 @@
 package projeto.entities.player;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable {
     private int itemId;
     private String nomeItem;
     private String descItem;

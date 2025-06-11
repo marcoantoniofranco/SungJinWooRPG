@@ -6,6 +6,7 @@ import java.util.Scanner;
 import projeto.entities.player.Player;
 import projeto.entities.quest.NivelDificuldade;
 import projeto.entities.quest.Quest;
+import projeto.entities.quest.QuestFactory;
 
 public class Main {
     public static void main(String[] args) {
@@ -46,7 +47,8 @@ public class Main {
             System.out.println("4 - Finalizar Missão");
             System.out.println("5 - Mostrar Quests Feitas");
             System.out.println("6 - Quest para json");
-            System.out.println("7 - Sair");
+            System.out.println("7 - Serializar player");
+            System.out.println("8 - Sair");
             System.out.print("Escolha uma opção: ");
 
             int opcao = sc.nextInt();
@@ -78,11 +80,10 @@ public class Main {
                         } catch (Exception exception) {
                             System.out.println("\nErro, Insira um número\n" + exception);
                             sc.nextLine();
-
                         }
                     }
 
-                    int duracaoOpcao = 0;
+                    String tipo = "";
 
                     // loop contendo:
                     // try catch para tratar entradas de letras
@@ -94,19 +95,25 @@ public class Main {
                             System.out.println("2 - Semanal");
                             System.out.println("3 - Mensal");
                             System.out.print("Escolha: ");
-                            duracaoOpcao = sc.nextInt();
-                            if(duracaoOpcao <= 3){
-                                break;
+                            int duracaoOpcao = sc.nextInt();
+                            sc.nextLine(); // consumir quebra de linha
+                            switch (duracaoOpcao) {
+                                case 1 -> tipo = "diaria";
+                                case 2 -> tipo = "semanal";
+                                case 3 -> tipo = "mensal";
+                                default -> throw new IllegalArgumentException("Opção inválida.");
                             }
-                            throw new IllegalArgumentException("Insira a opção correta.");
+                            break;
                         } catch (Exception exception) {
-                            System.out.println("\nErro, Insira um número\n" + exception);
+                            System.out.println("\nErro, insira um número válido\n" + exception);
                             sc.nextLine();
-
                         }
                     }
 
-                    player.criarMissaoUsuario(titulo, descricao, dificuldade, duracaoOpcao, player);
+                    // cria a quest usando o FACTORY
+                    Quest novaQuest = QuestFactory.criarQuest(titulo, dificuldade, descricao, tipo);
+                    player.adicionarQuest(novaQuest);
+                    System.out.println("Missão criada com sucesso!");
                     break;
                 case 2:
                     System.out.println(player);
@@ -138,6 +145,9 @@ public class Main {
                     player.questParaJson(idJson);
                     break;
                 case 7:
+                    player.serializarPlayer(player);
+                    break;
+                case 8:
                     continuar = false;
                     break;
                 default:

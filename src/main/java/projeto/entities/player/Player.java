@@ -4,18 +4,20 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import projeto.entities.quest.NivelDificuldade;
 import projeto.entities.quest.Quest;
+import projeto.entities.quest.QuestFactory;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-// superclasse da aplicação
-
-public class Player {
+public class Player implements Serializable {
 
     private static int contadorId;
-    private int id;
+    private final int id;
 
     private String nome;
     private int idade;
@@ -27,14 +29,14 @@ public class Player {
     private int constituicao;
     private boolean ofensiva;
 
-    // COMPOSIÇÃO
+    // COMPOSIÇÃO E COLEÇÃO USANDO ARRAYLIST
     private ArrayList<Quest> listaQuests;
 
     // COMPOSIÇÃO
-    private Inventario inventario;
+    private final Inventario inventario;
 
     // COLEÇÃO USANDO MAP E INSTANCIANDO HASHMAP
-    private Map<Quest, Date> questsFinalizadas;
+    private final Map<Quest, Date> questsFinalizadas;
 
     // construtor padrão
     public Player(String nome, int idade) {
@@ -69,31 +71,32 @@ public class Player {
     }
 
 
-    //conclui a quest passando o indice como parametro
-    public void concluirQuest(int indice) {
-        if (indice < 0 || indice >= listaQuests.size()) {
-            System.out.println("Missão inválida.");
-            return;
-        }
+//    //conclui a quest passando o indice como parametro
+//    public void concluirQuest(int indice) {
+//        if (indice < 0 || indice >= listaQuests.size()) {
+//            System.out.println("Missão inválida.");
+//            return;
+//        }
+//
+//        Quest quest = listaQuests.get(indice);
+//        if (!quest.isFinalizada()) {
+//            quest.finalizar();
+//            int xpGanho = quest.calcularXP();
+//            adicionarXP(xpGanho);
+//            this.addQuestAoHistorico(quest, this);
+//            System.out.println("Missão '" + quest.getTitulo() + "' finalizada! XP ganho: " + xpGanho);
+//        } else {
+//            System.out.println("Missão já foi finalizada.");
+//        }
+//    }
 
-        Quest quest = listaQuests.get(indice);
-        if (!quest.isFinalizada()) {
-            quest.finalizar();
-            int xpGanho = quest.calcularXP();
-            adicionarXP(xpGanho);
-            this.addQuestAoHistorico(quest, this);
-            System.out.println("Missão '" + quest.getTitulo() + "' finalizada! XP ganho: " + xpGanho);
-        } else {
-            System.out.println("Missão já foi finalizada.");
-        }
-    }
-
+    // cria missao com dados inputados utilizando um construtor ao final
     public void criarMissaoUsuario(String titulo, String descricao, NivelDificuldade dificuldade, int duracaoOpcao, Player player) {
         String duracao;
 
         switch (duracaoOpcao) {
             case 1:
-                duracao = "diária";
+                duracao = "diaria";
                 break;
             case 2:
                 duracao = "semanal";
@@ -102,20 +105,22 @@ public class Player {
                 duracao = "mensal";
                 break;
             default:
-                duracao = "diária";
+                duracao = "diaria";
         }
 
-        Quest novaQuest = new Quest(titulo, dificuldade, descricao, duracao);
+        Quest novaQuest = QuestFactory.criarQuest(titulo, dificuldade, descricao, duracao);
         player.adicionarQuest(novaQuest);
         System.out.println("Missão " + duracao + " criada com sucesso!");
     }
 
+
+    // finaliza a quest com base no indice da quest, ao final adiciona ao historico
     public void finalizarMissao(Player player, int numeroMissao) {
 
         if (numeroMissao >= 0 && numeroMissao < player.getListaQuests().size()) {
             Quest quest = player.getListaQuests().get(numeroMissao);
             if (!quest.isFinalizada()) {
-                int xpGanho = quest.calcularXP();
+                int xpGanho = quest.getEstrategiaXp().calcularXP() * quest.getDificuldade().getValor();
                 quest.finalizar();
                 player.adicionarXP(xpGanho);
                 System.out.println("Missão finalizada! Você ganhou " + xpGanho + " XP!");
@@ -129,6 +134,7 @@ public class Player {
         }
     }
 
+    // faz um for percorrendo a listaQuests do player
     public void mostrarMissoes(Player player) {
         System.out.println("\n=== Suas Missões ===");
 
@@ -136,7 +142,7 @@ public class Player {
             Quest quest = player.getListaQuests().get(i);
             if(!quest.isFinalizada()) {
                 System.out.println(quest.getId() + " - " + quest.getTitulo() +
-                        " (XP: " + quest.calcularXP() +
+                        " (XP: " + quest.getEstrategiaXp().calcularXP() +
                         ", Dificuldade: " + quest.getDificuldadeNome() +
                         ", Duração: " + quest.getDuracao() + ")");
             }
@@ -196,6 +202,7 @@ public class Player {
     public void subirNivel() {
         xp = (int) (xp - xpProximoNivel(lvl));
         lvl++;
+        aumentarCapInventario(this.inventario);
     }
 
     /**
@@ -229,6 +236,23 @@ public class Player {
     public void visualizarQuestsFinalizadas(){
         System.out.println(questsFinalizadas);
 
+    }
+
+    public void aumentarCapInventario(Inventario inventario){
+        inventario.setCapacidadeMax(inventario.getCapacidadeMax() + 1);
+    }
+
+    // função para serializar o player
+    public void serializarPlayer(Player player){
+
+        try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("player.ser"))) {
+            output.writeObject(player);
+            System.out.println();
+            System.out.println("player serializado");
+
+        } catch (Exception ex) {
+            System.out.println("erro ao serializar: " + ex.getMessage());
+        }
     }
 
     // Getters e Setters
@@ -340,6 +364,8 @@ public class Player {
                 + "\nForça: " + forca
                 + "\nInteligência: " + inteligencia
                 + "\nConstituição: " + constituicao
-                + "\nModo Ofensivo: " + (ofensiva ? "Ativado" : "Desativado");
+                + "\nModo Ofensivo: " + (ofensiva ? "Ativado" : "Desativado")
+                + "\nCapacidade Inventario: " + inventario.getCapacidadeMax();
+
     }
 }

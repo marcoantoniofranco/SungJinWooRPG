@@ -1,6 +1,8 @@
 package projeto.entities.player;
 
-public class Inventario {
+import java.io.Serializable;
+
+public class Inventario implements Serializable {
     private int capacidadeMax;
     private int totalItens;
 
@@ -33,5 +35,33 @@ public class Inventario {
                 itens[i] = null;
             }
         }
+    }
+
+    public int getCapacidadeMax() {
+        return capacidadeMax;
+    }
+
+    public void setCapacidadeMax(int capacidadeMax) {
+        this.capacidadeMax = capacidadeMax;
+    }
+
+    public Item[] getItens() {
+        return itens;
+    }
+
+    public void setItens(Item[] itens) {
+        this.itens = itens;
+    }
+
+    public int getTotalItens() {
+        return totalItens;
+    }
+
+    public void setTotalItens(int totalItens) {
+        this.totalItens = totalItens;
+    }
+
+    public String toString(){
+        return "\nCapacidade do inventario: " + capacidadeMax;
     }
 }
