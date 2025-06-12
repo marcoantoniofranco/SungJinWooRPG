@@ -6,15 +6,12 @@ import projeto.entities.quest.NivelDificuldade;
 import projeto.entities.quest.Quest;
 import projeto.entities.quest.QuestFactory;
 
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 
 public class Player implements Serializable {
+
+    private static final long serialUID = 1L;
 
     private static int contadorId;
     private final int id;
@@ -69,26 +66,6 @@ public class Player implements Serializable {
             System.out.println("Operação de missão finalizada");
         }
     }
-
-
-//    //conclui a quest passando o indice como parametro
-//    public void concluirQuest(int indice) {
-//        if (indice < 0 || indice >= listaQuests.size()) {
-//            System.out.println("Missão inválida.");
-//            return;
-//        }
-//
-//        Quest quest = listaQuests.get(indice);
-//        if (!quest.isFinalizada()) {
-//            quest.finalizar();
-//            int xpGanho = quest.calcularXP();
-//            adicionarXP(xpGanho);
-//            this.addQuestAoHistorico(quest, this);
-//            System.out.println("Missão '" + quest.getTitulo() + "' finalizada! XP ganho: " + xpGanho);
-//        } else {
-//            System.out.println("Missão já foi finalizada.");
-//        }
-//    }
 
     // cria missao com dados inputados utilizando um construtor ao final
     public void criarMissaoUsuario(String titulo, String descricao, NivelDificuldade dificuldade, int duracaoOpcao, Player player) {
@@ -149,27 +126,11 @@ public class Player implements Serializable {
         }
     }
 
-    public String questParaJson(int id){
-
-        Quest quest = this.listaQuests.get(id);
-
-        quest.finalizar();
-
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-        String json = gson.toJson(quest);
-
-        System.out.println(json);
-
-        return json;
-    }
-
     //Adiciona xp ao Player e verifica se subiu de nivel
     public void adicionarXP(int xp) {
         this.xp += xp;
         verificarSubirNivel();
     }
-
 
     //Calcula a quantidade de XP necessária para subir de nível.
     //A quantidade aumenta conforme o nível do jogador.
@@ -185,41 +146,28 @@ public class Player implements Serializable {
         return lvl * 140;
     }
 
-    /**
-     * Verifica se o jogador tem XP suficiente para subir de nível.
-     * Se tiver, aumenta o nível e ajusta o XP.
-     */
+
+    //verifica se pode subir de nivel e chama funcao para upar
     private void verificarSubirNivel() {
-        while (this.xp >= xpProximoNivel(lvl)) {
+        if(this.xp >= xpProximoNivel(lvl)) {
             subirNivel();
             System.out.println("\nPARABÉNS! Você subiu para o nível " + this.lvl + "!");
         }
     }
 
-    /**
-     * Aumenta o nível do jogador diretamente e reseta o xp para o xp atual menos o gap para o proximo nivel.
-     */
-    public void subirNivel() {
+    // sobe de nivel, reseta o xp e chama funcao para aumentar inventario
+    private void subirNivel() {
         xp = (int) (xp - xpProximoNivel(lvl));
         lvl++;
         aumentarCapInventario(this.inventario);
     }
 
-    /**
-     * Alterna o modo ofensivo do jogador entre ativado e desativado.
-     *
-     * @return O novo estado do modo ofensivo
-     */
+
     public boolean alternarModoOfensivo() {
         return this.ofensiva = !this.ofensiva;
     }
 
-    /**
-     * Remove uma missão da lista de missões do jogador pelo índice.
-     *
-     * @param indice Índice da missão a ser removida
-     * @return true se a missão foi removida com sucesso, false caso contrário
-     */
+    // remove quest utilizando indice, verifica antes se é possivel
     public boolean removerQuest(int indice) {
         if (indice < 0 || indice >= listaQuests.size()) {
             return false;
@@ -242,6 +190,23 @@ public class Player implements Serializable {
         inventario.setCapacidadeMax(inventario.getCapacidadeMax() + 1);
     }
 
+    //função para serializar quest (para json):
+    public String questParaJson(int id){
+
+        Quest quest = this.listaQuests.get(id);
+
+        quest.finalizar();
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        String json = gson.toJson(quest);
+
+        System.out.println(json);
+
+        return json;
+    }
+
+
     // função para serializar o player
     public void serializarPlayer(Player player){
 
@@ -252,6 +217,18 @@ public class Player implements Serializable {
 
         } catch (Exception ex) {
             System.out.println("erro ao serializar: " + ex.getMessage());
+        }
+    }
+
+    // função para deserializar o player
+    public Player desserializarPlayer() {
+        try (ObjectInputStream input = new ObjectInputStream(new FileInputStream("player-serial.ser"))) {
+            System.out.println();
+            System.out.println("Player desserializado!");
+            return (Player) input.readObject();
+        } catch (Exception ex) {
+            System.out.println("erro ao desserializar: " + ex.getMessage());
+            return null;
         }
     }
 

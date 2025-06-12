@@ -34,17 +34,18 @@ public class SerialQuestTest {
             "titulo": "Corrida",
             "dificuldade": "DIFICIL",
             "descricao": "Correr de 5 a 10 km",
-            "duracao": "diária",
+            "duracao": "diaria",
             "finalizada": false,
             "dataFinalizacao": null,
-            "estrategiaXp" : 
-            
+            "questXp": 0
         }
         """;
 
         Gson gson = new GsonBuilder().create();
 
         Quest quest = gson.fromJson(json, Quest.class);
+
+        quest.aplicarEstrategia();
 
         assertTrue(quest.getTitulo().equals("Corrida"));
         assertTrue(quest.getDificuldade() == NivelDificuldade.DIFICIL);

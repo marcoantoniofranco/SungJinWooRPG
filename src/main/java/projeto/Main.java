@@ -47,8 +47,9 @@ public class Main {
             System.out.println("4 - Finalizar Missão");
             System.out.println("5 - Mostrar Quests Feitas");
             System.out.println("6 - Quest para json");
-            System.out.println("7 - Serializar player");
-            System.out.println("8 - Sair");
+            System.out.println("7 - Salvar player");
+            System.out.println("8 - Carregar player");
+            System.out.println("9 - Sair");
             System.out.print("Escolha uma opção: ");
 
             int opcao = sc.nextInt();
@@ -148,6 +149,16 @@ public class Main {
                     player.serializarPlayer(player);
                     break;
                 case 8:
+                    player = player.desserializarPlayer();
+
+                    if (player == null) {
+                        player = new Player(nome, idade);
+                    }
+
+                    System.out.println(player);
+
+                    break;
+                case 9:
                     continuar = false;
                     break;
                 default:

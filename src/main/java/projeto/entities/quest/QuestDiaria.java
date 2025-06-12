@@ -36,11 +36,4 @@ public class QuestDiaria extends Quest {
         return estrategiaXp.calcularXP();
     }
 
-
-    // uma quest diária sempre tem multiplicador 1
-    // POLIMORFISMO aplicado
-    @Override
-    protected int calcularMultiplicadorDuracao() {
-        return 1;
-    }
 }
