@@ -1,25 +1,27 @@
 package projeto.entities.player;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Inventario implements Serializable {
     private int capacidadeMax;
     private int totalItens;
 
-    // AGREGAÇÃO
-    private Item[] itens;
+    // COLEÇÃO E AGREGAÇÃO
+    private ArrayList<Item> itens;
 
     // Construtor padrão
     public Inventario(){
         this.capacidadeMax = 20;
         this.totalItens = 0;
-        this.itens = new Item[capacidadeMax];
+        this.itens = new ArrayList<Item>();
     }
 
     // Adicionar item ao inventário se houver espaço
     public void adicionarItem(Item item) {
         if (item != null && totalItens < capacidadeMax) {
-            itens[totalItens++] = item;
+            itens.add(item);
+            totalItens++;
             System.out.println("item adicionado.");
         }
         if(totalItens >= capacidadeMax){
@@ -30,9 +32,11 @@ public class Inventario implements Serializable {
 
     // Remover item por ID
     public void removerItem(int itemId) {
+        Item item = null;
         for (int i = 0; i < totalItens; i++) {
-            if (itens[i].getItemId() == itemId) {
-                itens[i] = null;
+            item = itens.get(i);
+            if (item.getItemId() == itemId) {
+                itens.remove(item);
             }
         }
     }
@@ -45,11 +49,11 @@ public class Inventario implements Serializable {
         this.capacidadeMax = capacidadeMax;
     }
 
-    public Item[] getItens() {
+    public ArrayList<Item> getItens() {
         return itens;
     }
 
-    public void setItens(Item[] itens) {
+    public void setItens(ArrayList<Item> itens) {
         this.itens = itens;
     }
 

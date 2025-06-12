@@ -25,6 +25,7 @@ public class Quest implements Serializable {
 
     protected Date dataFinalizacao;
 
+    // AGREGAÇÃO
     protected EstrategiaXp estrategiaXp;
 
     protected int questXp;

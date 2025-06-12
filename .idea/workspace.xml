@@ -6,26 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="6e547a10-3d01-4401-b585-2241e94f4a6f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/projeto/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/projeto/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/projeto/entities/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/projeto/entities/player/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/projeto/entities/quest/Quest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/projeto/entities/quest/Quest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/projeto/entities/quest/QuestDiaria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/projeto/entities/quest/QuestDiaria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/projeto/entities/quest/QuestMensal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/projeto/entities/quest/QuestMensal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/projeto/entities/quest/QuestSemanal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/projeto/entities/quest/QuestSemanal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/SerialQuestTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/SerialQuestTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/projeto/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/projeto/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/projeto/entities/player/Inventario.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/projeto/entities/player/Inventario.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/projeto/entities/player/Item.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/projeto/entities/player/Item.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/projeto/entities/quest/NivelDificuldade.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/projeto/entities/quest/NivelDificuldade.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/projeto/entities/player/Inventario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/projeto/entities/player/Inventario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/projeto/entities/quest/Quest$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/projeto/entities/quest/Quest$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/projeto/entities/quest/Quest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/projeto/entities/quest/Quest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/projeto/entities/quest/QuestDiaria.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/projeto/entities/quest/QuestDiaria.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/projeto/entities/quest/QuestFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/projeto/entities/quest/QuestFactory.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/projeto/entities/quest/QuestMensal.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/projeto/entities/quest/QuestMensal.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/projeto/entities/quest/QuestSemanal.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/projeto/entities/quest/QuestSemanal.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/projeto/entities/quest/calculoXp/XpDiaria.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/projeto/entities/quest/calculoXp/XpDiaria.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/projeto/entities/quest/calculoXp/XpMensal.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/projeto/entities/quest/calculoXp/XpMensal.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/projeto/entities/quest/calculoXp/XpSemanal.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/projeto/entities/quest/calculoXp/XpSemanal.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/SerialQuestTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/SerialQuestTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,23 +41,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "JUnit.QuestTest.criarEFinalizar.executor": "Run",
-    "JUnit.QuestTest.criarMissao.executor": "Run",
-    "JUnit.QuestTest.executor": "Run",
-    "JUnit.SerialPlayerTest.desserializarPlayer.executor": "Run",
-    "JUnit.SerialPlayerTest.executor": "Run",
-    "JUnit.SerialPlayerTest.serializarPlayer.executor": "Run",
-    "JUnit.SerialQuestTest.JsonParaQuest.executor": "Run",
-    "JUnit.SerialQuestTest.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/SungJinWooRPG"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.QuestTest.criarEFinalizar.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.QuestTest.criarMissao.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.QuestTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SerialPlayerTest.desserializarPlayer.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SerialPlayerTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SerialPlayerTest.serializarPlayer.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SerialQuestTest.JsonParaQuest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.SerialQuestTest.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/SungJinWooRPG&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="projeto.Main" />
