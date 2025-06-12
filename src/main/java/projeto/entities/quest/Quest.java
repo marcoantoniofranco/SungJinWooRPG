@@ -3,9 +3,6 @@ package projeto.entities.quest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import projeto.entities.player.Player;
-import projeto.entities.quest.calculoXp.XpDiaria;
-import projeto.entities.quest.calculoXp.XpMensal;
-import projeto.entities.quest.calculoXp.XpSemanal;
 
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
@@ -28,21 +25,21 @@ public class Quest implements Serializable {
 
     protected Date dataFinalizacao;
 
-    protected transient EstrategiaXp estrategiaXp;
+    protected EstrategiaXp estrategiaXp;
 
     protected int questXp;
 
     // Criar missão com título, dificuldade, descrição e duração
-    public Quest(String titulo, NivelDificuldade dificuldade, String descricao, EstrategiaXp estrategiaXp) {
+    public Quest(String titulo, NivelDificuldade dificuldade, String descricao, EstrategiaXp extrategiaXp) {
         contadorId++;
         id = contadorId;
         this.titulo = titulo;
         this.dificuldade = dificuldade;
         this.descricao = descricao;
-        this.estrategiaXp = estrategiaXp;
-        this.duracao = estrategiaXp.toString();
+        this.estrategiaXp = extrategiaXp;
+        this.duracao = extrategiaXp.toString();
         this.finalizada = false;
-        this.questXp = estrategiaXp.calcularXP() * dificuldade.getValor();
+        this.questXp = extrategiaXp.calcularXP() * dificuldade.getValor();
     }
 
     public Quest() {
@@ -63,22 +60,20 @@ public class Quest implements Serializable {
             case FACIL -> 1;
         };
 
-        int multiplicadorDuracao = estrategiaXp.calcularXP();
+        int multiplicadorDuracao = calcularMultiplicadorDuracao();
 
-        return multiplicadorDificuldade * multiplicadorDuracao;
+        return 100 * multiplicadorDificuldade * multiplicadorDuracao;
     }
 
-    // faz a estrategiaXp da quest receber seu valor conforme o atributo duracao
-    public void aplicarEstrategia() {
-        if (duracao == null) return;
-
-        switch (duracao.toLowerCase()) {
-            case "diaria" -> this.estrategiaXp = new XpDiaria();
-            case "semanal" -> this.estrategiaXp = new XpSemanal();
-            case "mensal" -> this.estrategiaXp = new XpMensal();
-            default -> throw new IllegalArgumentException("Duração inválida: " + duracao);
-        }
+    protected int calcularMultiplicadorDuracao() {
+        return switch (duracao) {
+            case "semanal" -> 2;
+            case "mensal" -> 3;
+            default -> 1; // diária
+        };
     }
+
+
 
     // Obter nome da dificuldade
     public String getDificuldadeNome() {
